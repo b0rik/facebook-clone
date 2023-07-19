@@ -23,10 +23,10 @@ exports.posts_create = asyncHandler(async (req, req, next) => {
 
 // delete post
 exports.posts_delete = asyncHandler(async (req, req, next) => {
-  `NOT IMPLEMENTED: delete post id ${req.params.id}`
+  `NOT IMPLEMENTED: delete post by id ${req.params.id}`
 });
 
 // update post
 exports.posts_update = asyncHandler(async (req, req, next) => {
-  `NOT IMPLEMENTED: update post id ${req.params.id}`
+  `NOT IMPLEMENTED: update post by id ${req.params.id}`
 });
