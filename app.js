@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const commentsRouter = require('./routes/comments');
+const postsRouter = require('./routes/posts');
 const usersRouter = require('./routes/users');
 const { config } = require('dotenv');
 
@@ -40,6 +41,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/comments', commentsRouter);
+app.use('/posts', postsRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

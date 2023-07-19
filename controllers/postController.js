@@ -1,11 +1,6 @@
 const Post = require('../models/post');
 const asyncHandler = require('express-async-handler');
 
-// display all posts
-exports.posts_list = asyncHandler(async (req, req, next) => {
-  res.send('NOT IMPLEMENTED: posts_list');
-});
-
 // display posts posted by user
 exports.posts_by_user = asyncHandler(async (req, req, next) => {
   res.send(`NOT IMPLEMENTED: posts by user id ${req.params.id}`);
@@ -16,17 +11,22 @@ exports.posts_liked_by_user = asyncHandler(async (req, req, next) => {
   res.send(`NOT IMPLEMENTED: posts liked by user id ${req.params.id}`);
 });
 
-// add post by user
-exports.post_create = asyncHandler(async (req, req, next) => {
-  `NOT IMPLEMENTED: post created by user id ${req.params.id}`
+// display add post form
+exports.post_create_get = asyncHandler(async (req, req, next) => {
+  res.send('NOT IMPLEMENTED: post create form');
+});
+
+// add post
+exports.post_create_post = asyncHandler(async (req, req, next) => {
+  res.send('NOT IMPLEMENTED: add post');
 });
 
 // delete post
 exports.post_delete = asyncHandler(async (req, req, next) => {
-  `NOT IMPLEMENTED: delete post by id ${req.params.id}`
+  res.send(`NOT IMPLEMENTED: delete post by id ${req.params.id}`);
 });
 
 // update post
 exports.post_update = asyncHandler(async (req, req, next) => {
-  `NOT IMPLEMENTED: update post by id ${req.params.id}`
+  res.send(`NOT IMPLEMENTED: update post by id ${req.params.id}`);
 });
