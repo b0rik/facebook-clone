@@ -17,16 +17,16 @@ exports.posts_liked_by_user = asyncHandler(async (req, req, next) => {
 });
 
 // add post by user
-exports.posts_create = asyncHandler(async (req, req, next) => {
+exports.post_create = asyncHandler(async (req, req, next) => {
   `NOT IMPLEMENTED: post created by user id ${req.params.id}`
 });
 
 // delete post
-exports.posts_delete = asyncHandler(async (req, req, next) => {
+exports.post_delete = asyncHandler(async (req, req, next) => {
   `NOT IMPLEMENTED: delete post by id ${req.params.id}`
 });
 
 // update post
-exports.posts_update = asyncHandler(async (req, req, next) => {
+exports.post_update = asyncHandler(async (req, req, next) => {
   `NOT IMPLEMENTED: update post by id ${req.params.id}`
 });

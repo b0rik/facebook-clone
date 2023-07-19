@@ -7,11 +7,11 @@ exports.users_list = asyncHandler(async (req, res, next) => {
 });
 
 // display user
-exports.users_list = asyncHandler(async (req, res, next) => {
+exports.user_show= asyncHandler(async (req, res, next) => {
   res.send(`NOT IMPLEMENTED: display user by id ${req.params.id}`);
 });
 
 // delete user
-exports.users_list = asyncHandler(async (req, res, next) => {
+exports.user_delete = asyncHandler(async (req, res, next) => {
   res.send(`NOT IMPLEMENTED: delete user by id ${req.params.id}`);
 });
