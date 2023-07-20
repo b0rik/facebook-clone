@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const comment_controller = require('../conrollers/commentController');
+const comment_controller = require('../controllers/commentController');
 
 // GET request for comments by a user
 router.get('/user/:id', comment_controller.comments_by_user);

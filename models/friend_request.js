@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const FriendRequestSchema = new mongoose.Schema({
+const FriendRequestSchema = new Schema({
   status: {
     type: String,
     enum: ['pending', 'denied', 'accepted'],

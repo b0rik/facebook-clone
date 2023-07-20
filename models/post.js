@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const PostModelSchema = new mongoose.Schema({
+const PostModelSchema = new Schema({
   author: { 
     type: Schema.Types.ObjectId, 
     required: true 
