@@ -3,15 +3,17 @@ import React from 'react';
 import SearchBar from '../components/searchBar';
 import NavLinks from '../components/navLinks';
 
+import '../styles/navbar.css';
+
 const Navbar = () => {
   return (
-    <div className="navbar">
+    <nav className="navbar">
       <div className="navbar__logo">
         facebook
       </div>
-      {/* <SearchBar />
-      <NavLinks /> */}
-    </div>
+      <SearchBar />
+      <NavLinks />
+    </nav>
   );
 };
 

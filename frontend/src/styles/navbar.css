@@ -1,0 +1,15 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: var(--primary-blue);
+  padding-right: 1.5rem;
+}
+
+.navbar__logo {
+  color: var(--white);
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 0.5rem 1.5rem;
+}

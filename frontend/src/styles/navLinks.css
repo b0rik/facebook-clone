@@ -1,0 +1,36 @@
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0;
+}
+
+.nav-links__link {
+  padding: 0.5rem;
+  list-style: none;
+}
+
+.nav-links__link a {
+  text-decoration: none;
+}
+
+.nav-links__link button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links__link a,
+.nav-links__link button {
+  color: var(--secondary-blue);
+}
+
+.nav-links__link a:hover,
+.nav-links__link button:hover,
+.nav-links__link a:active,
+.nav-links__link button:active {
+  color: var(--secondary-gray);
+}

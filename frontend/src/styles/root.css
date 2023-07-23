@@ -1,3 +1,12 @@
+:root {
+  --primary-blue: #3B5998;
+  --secondary-blue: #8B9DC3;
+  --primary-gray: #DFE3EE;
+  --secondary-gray: #F7F7F7;
+  --black: #000000;
+  --white: #ffffff; 
+}
+
 /*
   Josh's Custom CSS Reset
   https://www.joshwcomeau.com/css/custom-css-reset/
@@ -24,4 +33,13 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 #root, #__next {
   isolation: isolate;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
 }
