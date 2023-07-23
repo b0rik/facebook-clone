@@ -1,3 +1,5 @@
+import { Outlet } from 'react-router-dom';
+
 import Navbar from '../components/navbar';
 
 import '../styles/root.css';
@@ -8,6 +10,11 @@ const Root = () => {
       <header className="header">
         <Navbar />
       </header>
+      <main>
+        <Outlet />
+      </main>
+      <footer>
+      </footer>
     </div>
   );
 };

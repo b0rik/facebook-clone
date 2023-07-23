@@ -8,6 +8,7 @@
 }
 
 .navbar__logo {
+  text-decoration: none;
   color: var(--white);
   font-size: 2rem;
   font-weight: bold;

@@ -1,0 +1,13 @@
+.content {
+  padding: 1.5rem;
+  border: solid var(--primary-gray) 0.125rem;
+  width: 70%;
+}
+
+.remove-border-left {
+  border-left: none;
+}
+
+.remove-border-right {
+  border-right: none;
+}

@@ -1,0 +1,13 @@
+.side {
+  padding: 0.5rem;
+  border: solid var(--primary-gray) 0.125rem;
+  width: 30%;
+}
+
+.remove-border-left {
+  border-left: none;
+}
+
+.remove-border-right {
+  border-right: none;
+}

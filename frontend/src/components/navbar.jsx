@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 import SearchBar from '../components/searchBar';
 import NavLinks from '../components/navLinks';
@@ -8,9 +8,9 @@ import '../styles/navbar.css';
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <div className="navbar__logo">
+      <Link to={'/'} className="navbar__logo">
         facebook
-      </div>
+      </Link>
       <SearchBar />
       <NavLinks />
     </nav>
