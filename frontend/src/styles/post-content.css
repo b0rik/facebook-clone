@@ -1,0 +1,8 @@
+.post-content {
+  padding: 0.5rem;
+}
+
+.post-content__text {
+  font-weight: normal;
+  padding-left: 2rem;
+}

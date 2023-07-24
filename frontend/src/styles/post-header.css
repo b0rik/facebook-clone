@@ -1,0 +1,35 @@
+.post-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.post-header__image {
+  border-radius: 5rem;
+  overflow: hidden;
+}
+
+.post-header__image img {
+  width: 5rem;
+}
+
+.post-header__icon {
+  width: 1.5rem;
+}
+
+.post-header__title {
+  padding: 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.post-header__user {
+  color: var(--primary-blue);
+  text-decoration: none;
+}
+
+.post-header__time {
+  font-weight: 600;
+  opacity: 0.7;
+}

@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const PostModelSchema = new Schema({
   author: { 
     type: Schema.Types.ObjectId, 
+    ref: 'User',
     required: true 
   },
   date: { 

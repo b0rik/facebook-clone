@@ -1,6 +1,11 @@
 const Post = require('../models/post');
 const asyncHandler = require('express-async-handler');
 
+// display all posts posted by friends
+exports.posts_by_friends = asyncHandler(async (req, res, next) => {
+  res.send('NOT IMPLEMENTED: posts by friends');
+});
+
 // display posts posted by user
 exports.posts_by_user = asyncHandler(async (req, res, next) => {
   res.send(`NOT IMPLEMENTED: posts by user id ${req.params.id}`);
