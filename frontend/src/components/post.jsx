@@ -5,6 +5,7 @@ import PostFooter from '../components/postFooter';
 import '../styles/post.css';
 
 const Post = ({ post }) => {
+  //mock component DELETE WHEN FINISH
   const mockPost = {
     _id: 'fd3eaac7e71bde1bce1d8e66',
     author: {
