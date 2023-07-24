@@ -31,6 +31,11 @@ async function main() {
 
 // END DB
 
+//DELETE AFTER USE!
+const { faker } = require('@faker-js/faker');
+const { addUser, addPost } = require('./populate');
+//DELETE AFTER USE!
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

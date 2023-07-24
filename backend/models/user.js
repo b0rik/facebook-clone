@@ -9,6 +9,10 @@ const UserSchema = new Schema({
     minLength: 1,
     maxLength: 100 
   },
+  date_of_birth: { 
+    type: Date,
+    required: true
+  },
   friends: [{ 
     type:Schema.Types.ObjectId,
     ref: 'User' 
