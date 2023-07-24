@@ -1,0 +1,30 @@
+.friend-suggestion {
+  background-color: var(--white);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.friend-suggestion__image {
+  width: 7.5rem;
+  border-radius: 5rem;
+}
+
+.friend-suggestion__name {
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--primary-blue);
+}
+
+.friend-suggestion__button {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}

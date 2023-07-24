@@ -9,6 +9,9 @@ const Feed = () => {
       <Title>Feed</Title>
       <div className="feed__content">
         <Post post={''} />
+        <Post post={''} />
+        <Post post={''} />
+        <Post post={''} />
       </div>
     </div>
   );
