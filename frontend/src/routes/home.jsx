@@ -4,11 +4,11 @@ import Feed from '../components/feed';
 import Notifications from '../components/notifications';
 import FriendSuggestions from '../components/friendSuggestions';
 
-import '../styles/home.css';
+import '../styles/page.css';
 
 const Home = () => {
   return (
-    <div className="home">
+    <div className="page">
       <Content>
         <Feed />
       </Content>

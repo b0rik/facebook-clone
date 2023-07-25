@@ -1,0 +1,30 @@
+.post-form {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--primary-gray);
+}
+
+.post-form__input-field {
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: normal;
+  resize: none;
+}
+
+.post-form__input-field:focus {
+  outline: none;
+}
+
+.post-form__button {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  width: fit-content;
+}

@@ -1,0 +1,24 @@
+.friend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.friend__image {
+  border-radius: 5rem;
+  overflow: hidden;
+}
+
+.friend__image img {
+  width: 5rem;
+}
+
+.friend__name {
+  overflow-wrap: break-word;
+  text-align: center;
+  text-decoration: none;
+  color: var(--primary-blue);
+  font-size: 1rem;
+  font-weight: 600;
+}

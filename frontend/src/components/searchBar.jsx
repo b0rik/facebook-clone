@@ -1,4 +1,4 @@
-import '../styles/searchBar.css';
+import '../styles/search-bar.css';
 
 import searchIcon from '../assets/search-interface-symbol.png';
 

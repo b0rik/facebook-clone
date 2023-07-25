@@ -1,0 +1,12 @@
+.friends {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.friends__container {
+  padding: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
