@@ -6,8 +6,10 @@ const Signup = () => {
       <div className="signup">
         <h1 className="signup__title">facebook</h1>
         <form action="" className="signup__form">
-          <label className="signup__label" htmlFor="username">USERNAME</label>
-          <input type="text" className="signup__input-field" placeholder="enter your username"/>
+          <label className="signup__label" htmlFor="name">NAME</label>
+          <input type="text" className="signup__input-field" placeholder="enter your name"/>
+          <label className="signup__label" htmlFor="email">EMAIL</label>
+          <input type="email" className="signup__input-field" placeholder="enter your email"/>
           <label className="signup__label" htmlFor="password">PASSWORD</label>
           <input type="password" className="signup__input-field" placeholder="enter your password"/>
           <label className="signup__label" htmlFor="password_confirm">CONFIRM PASSWORD</label>
@@ -19,7 +21,7 @@ const Signup = () => {
           <div className="signup__buttons">
             <button id="signup_button" className="signup__button">Sign-Up</button>
             <p>or</p>
-            <button id="signup_button" className="signup__button signup__button--inverted">Reset</button>
+            <button id="signup_button" className="signup__button signup__button--inverted">Login</button>
           </div>
         </form>
       </div>

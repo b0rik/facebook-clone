@@ -6,8 +6,8 @@ const Login = () => {
       <div className="login">
         <h1 className="login__title">facebook</h1>
         <form action="" className="login__form">
-          <label className="login__label" htmlFor="username">USERNAME</label>
-          <input type="text" className="login__input-field" placeholder="enter your username"/>
+          <label className="login__label" htmlFor="email">email</label>
+          <input type="email" className="login__input-field" placeholder="enter your email"/>
           <label className="login__label" htmlFor="password">PASSWORD</label>
           <input type="password" className="login__input-field" placeholder="enter your password"/>
           <div className="login__buttons">
