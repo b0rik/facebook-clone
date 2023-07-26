@@ -1,4 +1,4 @@
-import '../styles/side-title.css';
+import '../../styles/side/side-title.css';
 
 const SideTitle = ({ children }) => {
   return (

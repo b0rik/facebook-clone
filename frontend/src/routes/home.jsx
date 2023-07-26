@@ -1,8 +1,8 @@
-import Content from '../components/content';
-import Side from '../components/side';
-import Feed from '../components/feed';
-import Notifications from '../components/notifications';
-import FriendSuggestions from '../components/friendSuggestions';
+import Content from '../components/content/content';
+import Side from '../components/side/side';
+import Feed from '../components/content/feed';
+import Notifications from '../components/side/notifications';
+import FriendSuggestions from '../components/friendSuggestions/friendSuggestions';
 
 import '../styles/page.css';
 

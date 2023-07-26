@@ -1,10 +1,10 @@
-import Content from '../components/content';
-import Side from '../components/side';
-import ProfileInfo from '../components/profileInfo';
-import Friends from '../components/friends';
-import PostForm from '../components/postForm';
-import Title from '../components/title';
-import Post from '../components/post';
+import Content from '../components/content/content';
+import Side from '../components/side/side';
+import ProfileInfo from '../components/side/profileInfo';
+import Friends from '../components/friends/friends';
+import PostForm from '../components/post/postForm';
+import Title from '../components/content/title';
+import Post from '../components/post/post';
 
 import '../styles/page.css';
 

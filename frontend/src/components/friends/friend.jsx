@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import '../styles/friend.css';
+import '../../styles/friends/friend.css';
 
 const Friend = ({ user }) => {
   const { _id, name, image } = user;

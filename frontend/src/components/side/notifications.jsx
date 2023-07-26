@@ -1,7 +1,7 @@
-import SideTitle from '../components/sideTitle';
-import SideInfo from '../components/sideInfo';
+import SideTitle from './sideTitle';
+import SideInfo from './sideInfo';
 
-import '../styles/notifications.css';
+import '../../styles/side/notifications.css';
 
 const Notifications = ({ children }) => {
   return (

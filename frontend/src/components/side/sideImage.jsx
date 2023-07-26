@@ -1,4 +1,4 @@
-import '../styles/side-image.css';
+import '../../styles/side/side-image.css';
 
 const SideImage = ({ image }) => {
   return (

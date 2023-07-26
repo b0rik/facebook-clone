@@ -1,4 +1,4 @@
-import '../styles/post-footer.css';
+import '../../styles/post/post-footer.css';
 
 const PostFooter = ({ comments, likes }) => {
   return (

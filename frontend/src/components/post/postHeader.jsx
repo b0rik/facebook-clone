@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 
-import postIcon from '../assets/sticky-notes.png';
+import postIcon from '../../assets/sticky-notes.png';
 
-import '../styles/post-header.css';
+import '../../styles/post/post-header.css';
 
 const PostHeader = ({ author, date }) => {
   return (

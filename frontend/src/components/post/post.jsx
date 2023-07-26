@@ -1,8 +1,8 @@
-import PostHeader from '../components/postHeader';
-import PostContent from '../components/postContent';
-import PostFooter from '../components/postFooter';
+import PostHeader from './postHeader';
+import PostContent from './postContent';
+import PostFooter from './postFooter';
 
-import '../styles/post.css';
+import '../../styles/post/post.css';
 
 const Post = ({ post }) => {
   //mock component DELETE WHEN FINISH

@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
-import SearchBar from '../components/searchBar';
-import NavLinks from '../components/navLinks';
+import SearchBar from './searchBar';
+import NavLinks from './navLinks';
 
-import '../styles/navbar.css';
+import '../../styles/navbar/navbar.css';
 
 const Navbar = () => {
   return (

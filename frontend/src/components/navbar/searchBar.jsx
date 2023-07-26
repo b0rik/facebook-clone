@@ -1,6 +1,6 @@
-import '../styles/search-bar.css';
+import '../../styles/navbar/search-bar.css';
 
-import searchIcon from '../assets/search-interface-symbol.png';
+import searchIcon from '../../assets/search-interface-symbol.png';
 
 const SearchBar = () => {
   return (

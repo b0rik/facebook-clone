@@ -1,4 +1,4 @@
-import '../styles/side-info.css';
+import '../../styles/side/side-info.css';
 
 const SideInfo = ({ children }) => {
   return (

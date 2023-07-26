@@ -1,4 +1,4 @@
-import '../styles/post-content.css'
+import '../../styles/post/post-content.css'
 
 const PostContent = ({ children }) => {
   return (

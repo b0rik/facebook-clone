@@ -1,7 +1,7 @@
-import SideTitle from './sideTitle';
+import SideTitle from '../side/sideTitle';
 import FriendSuggestion from './friendSuggestion';
 
-import '../styles/friend-suggestions.css'
+import '../../styles/friend-suggestions/friend-suggestions.css';
 
 const FriendSuggestions = () => {
   const mockUser = {

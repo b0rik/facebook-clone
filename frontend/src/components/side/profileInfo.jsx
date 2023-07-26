@@ -2,7 +2,7 @@ import SideImage from "./sideImage";
 import SideTitle from './sideTitle';
 import SideInfo from './sideInfo';
 
-import '../styles/profile-info.css';
+import '../../styles/side/profile-info.css';
 
 const ProfileInfo = ({ user }) => {
   return (

@@ -1,4 +1,4 @@
-import '../styles/post-form.css';
+import '../../styles/post/post-form.css';
 
 const PostForm = () => {
   return (

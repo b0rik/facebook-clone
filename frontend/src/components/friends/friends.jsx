@@ -1,7 +1,7 @@
-import SideTitle from './sideTitle';
+import SideTitle from '../side/sideTitle';
 import Friend from './friend';
 
-import '../styles/friends.css';
+import '../../styles/friends/friends.css';
 
 const Friends = () => {
   return (

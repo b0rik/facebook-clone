@@ -1,7 +1,7 @@
-import Post from '../components/post';
-import Title from '../components/title';
+import Post from '../post/post';
+import Title from './title';
 
-import '../styles/feed.css';
+import '../../styles/content/feed.css';
 
 const Feed = () => {
   return (
