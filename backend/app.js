@@ -1,40 +1,21 @@
-const createError = require('http-errors');
+require('dotenv').config();
+
+const createError = require('http-errors');0
 const express = require('express');
 const path = require('path');
-
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors')
 
+const connectDB = require('./utils/db');
+
 const commentsRouter = require('./routes/comments');
 const postsRouter = require('./routes/posts');
 const usersRouter = require('./routes/users');
-const { config } = require('dotenv');
 
 const app = express();
 
-// DB
-
-const mongoose = require('mongoose');
-
-config();
-
-mongoose.set("strictQuery", false);
-
-const mongoDBUri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.koxt7dl.mongodb.net/facebook_clone?retryWrites=true&w=majority`;
-
-main().catch((err) => console.log(err));
-async function main() {
-  await mongoose.connect(mongoDBUri);
-  console.log('Connected to database.');
-}
-
-// END DB
-
-//DELETE AFTER USE!
-const { faker } = require('@faker-js/faker');
-const { addUser, addPost } = require('./populate');
-//DELETE AFTER USE!
+connectDB();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

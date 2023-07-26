@@ -13,13 +13,11 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  password: {
+  hashPassword: {
     type: String,
     required: true,
-    minLength: 8,
-    maxLength: 32
   },
-  date_of_birth: { 
+  dateOfBirth: { 
     type: Date,
     required: true
   },
@@ -31,11 +29,11 @@ const UserSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref: 'Post' 
   }],
-  sent_friend_requests: [{ 
+  sentFriendRequests: [{ 
     type:Schema.Types.ObjectId,
     ref: 'FriendRequest' 
   }],
-  pending_friend_requests: [{ 
+  pendingFriendRequests: [{ 
     type:Schema.Types.ObjectId,
     ref: 'FriendRequest' 
   }],
@@ -47,7 +45,7 @@ const UserSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref: 'Comment' 
   }],
-  join_date: { 
+  joinDate: { 
     type: Date,
     required: true 
   },

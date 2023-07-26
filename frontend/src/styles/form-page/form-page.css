@@ -1,0 +1,31 @@
+.form-page {
+  background-color: var(--primary-blue);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-page__container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-page__title {
+  font-size: 5rem;
+  font-weight: bold;
+  color: var(--white);
+  padding: 1rem 1.5rem;
+}
+
+.form-page__form {
+  background-color: var(--primary-gray);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1rem solid var(--secondary-gray);
+  width: 100%;
+}

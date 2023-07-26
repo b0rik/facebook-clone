@@ -18,13 +18,3 @@
   text-decoration: none;
   color: var(--primary-blue);
 }
-
-.friend-suggestion__button {
-  background-color: var(--primary-blue);
-  color: var(--white);
-  border: none;
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}

@@ -4,10 +4,10 @@
   width: 70%;
 }
 
-.remove-border-left {
+.content--remove-border-left {
   border-left: none;
 }
 
-.remove-border-right {
+.content--remove-border-right {
   border-right: none;
 }

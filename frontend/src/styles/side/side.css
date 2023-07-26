@@ -8,10 +8,10 @@
   background-color: var(--secondary-gray);
 }
 
-.remove-border-left {
+.side--remove-border-left {
   border-left: none;
 }
 
-.remove-border-right {
+.side--remove-border-right {
   border-right: none;
 }

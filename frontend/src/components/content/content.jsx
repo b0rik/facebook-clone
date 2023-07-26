@@ -1,7 +1,7 @@
 import '../../styles/content/content.css';
 
 const Content = ({ children, borderLeft = true, borderRight = true }) => {
-  const contentClassName = `content ${borderLeft ? '' : 'remove-border-left'} ${borderRight ? '' : 'remove-border-right'}`;
+  const contentClassName = `content ${borderLeft ? '' : 'content--remove-border-left'} ${borderRight ? '' : 'content--remove-border-right'}`;
 
   return (
     <section className={contentClassName}>
