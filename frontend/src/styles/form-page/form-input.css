@@ -17,12 +17,21 @@
   padding: 0.5rem 1rem;
 }
 
+.form-input__input-field--error {
+  border: 1px solid var(--error);
+}
+
 
 .form-input__input-field::placeholder {
   font-weight: 1rem;
   color: var(--secondary-blue);
 }
 
-form-input__input-field:focus {
+.form-input__input-field:focus {
   outline: none;
+}
+
+.form-input__errors {
+  color: var(--error);
+  margin-bottom: 1rem;
 }

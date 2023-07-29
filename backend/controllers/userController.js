@@ -14,12 +14,14 @@ exports.userCreate = asyncHandler(async (req, res, next) => {
   } = req.body;
 
   hashedPassword = await auth.getHashedPassword(password);
-  
-  User.create({
+
+  await User.create({
     profilePicture,
     name,
     email,
     hashedPassword,
     dateOfBirth
   });
+
+  res.json({ ok: true });
 });

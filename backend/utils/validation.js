@@ -17,10 +17,17 @@ exports.userSignupValidation = [
       const existingUser = await User.findOne({ email: value }).exec();
       if (existingUser) throw new Error('A user with this email already exists.');
     }),
-  body('password', 'Passsword must be at least 8 characters long and must contain at least: 1 lower case letter 1 upper case letter 1 number and 1 symbol')
+  body('password')
     .notEmpty()
-    .isStrongPassword(),
-  body('dateOfBirth', 'Date of birth must be of type Date.')
+    .withMessage('Password cannot be empty.')
+    .isStrongPassword()
+    .withMessage('Passsword must be at least 8 characters long and must contain at least: 1 lower case letter 1 upper case letter 1 number and 1 symbol'),
+  body('passwordConfirm')
+    .notEmpty()
+    .withMessage('Cannot be empty.')
+    .custom((value, { req }) => (value === req.body.password))
+    .withMessage('Passwords must be the same.'),
+  body('dateOfBirth', 'Invalid date.')
     .notEmpty()
     .withMessage('Date of birth cant be empty.')
     .isDate(),

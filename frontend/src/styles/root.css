@@ -5,6 +5,8 @@
   --secondary-gray: #F7F7F7;
   --black: #000000;
   --white: #ffffff; 
+  --error: #cf000f;
+  --success: #009944;
 }
 
 /*

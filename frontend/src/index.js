@@ -5,6 +5,8 @@ import {
   RouterProvider
 } from 'react-router-dom';
 
+import { signupAction } from './routes/signup';
+
 import Root from './routes/root';
 import Home from './routes/home';
 import Profile from './routes/profile';
@@ -35,21 +37,7 @@ const router = createBrowserRouter([
   {
     path: '/signup',
     element: <Signup />,
-    action: async ({ request }) =>  {
-      const formData = await request.formData();
-      const formBody = Object.fromEntries(formData);
-
-      const data = await fetch('http://localhost:9000/users/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: await JSON.stringify(formBody)
-      });
-
-      console.log(await data.json())
-      return null;
-    }
+    action: signupAction
   },
 ]);
 
