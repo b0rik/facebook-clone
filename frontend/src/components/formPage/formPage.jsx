@@ -1,3 +1,5 @@
+import { Form } from 'react-router-dom';
+
 import '../../styles/form-page/form-page.css'
 
 const FormPage = ({ title, children }) => {
@@ -5,9 +7,9 @@ const FormPage = ({ title, children }) => {
     <div className="form-page">
       <div className="form-page__container">
         <h1 className="form-page__title">{title}</h1>
-        <form action="" className="form-page__form">
+        <Form method="post" className="form-page__form">
           {children}
-        </form>
+        </Form>
       </div>
     </div>
   );

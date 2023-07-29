@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import FormPage from '../components/formPage/formPage';
 import FormInput from '../components/formPage/formInput';
 import Button from '../components/button';
@@ -28,7 +30,7 @@ const Signup = () => {
         />
         <FormInput 
           id="password_confirm"
-          type="password_confirm"
+          type="password"
           label="confirm password"
           placeholder="enter your password again"
         />

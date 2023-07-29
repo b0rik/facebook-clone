@@ -9,7 +9,7 @@ const FriendRequestSchema = new Schema({
   },
   date: {
     type: Date,
-    required: true
+    default: Date.now()
   },
   from: {
     type: Schema.Types.ObjectId,

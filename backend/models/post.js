@@ -9,21 +9,27 @@ const PostModelSchema = new Schema({
   },
   date: { 
     type: Date, 
-    required: true 
+    default: Date.now()
   },
   content: {
     type: String,
     required: true,
     minLength: 1
   },
-  likes: [{
+  likes: {
+    type: [{
     type: Schema.Types.ObjectId,
     ref: 'Like'
-  }],
-  comments: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Comment'
-  }],
+    }],
+    default: []
+  },
+  comments: {
+    type: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Comment'
+    }],
+    default: []
+  },
 });
 
 module.exports = mongoose.model('Post', PostModelSchema);

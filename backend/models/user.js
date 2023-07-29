@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  profile_picture: String,
+  profilePicture: String,
   name: { 
     type: String,
     required: true,
@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
-  hashPassword: {
+  hashedPassword: {
     type: String,
     required: true,
   },
@@ -21,33 +21,51 @@ const UserSchema = new Schema({
     type: Date,
     required: true
   },
-  friends: [{ 
+  friends: {
+    type: [{ 
     type:Schema.Types.ObjectId,
     ref: 'User' 
-  }],
-  posts: [{ 
+    }],
+    default: []
+  },
+  posts: {
+    type: [{ 
     type:Schema.Types.ObjectId,
     ref: 'Post' 
-  }],
-  sentFriendRequests: [{ 
+    }],
+    default: []
+  },
+  sentFriendRequests: {
+    type: [{ 
     type:Schema.Types.ObjectId,
     ref: 'FriendRequest' 
-  }],
-  pendingFriendRequests: [{ 
+    }],
+    default: []
+  },
+  pendingFriendRequests: {
+    type: [{ 
     type:Schema.Types.ObjectId,
     ref: 'FriendRequest' 
-  }],
-  likes: [{
+    }],
+    default: []
+  },
+  likes: {
+    type: [{
     type:Schema.Types.ObjectId, 
     ref: 'Like' 
-  }],
-  comments: [{ 
+    }],
+    default: []
+  },
+  comments: {
+    type: [{ 
     type:Schema.Types.ObjectId,
     ref: 'Comment' 
-  }],
+    }],
+    default: []
+  },
   joinDate: { 
     type: Date,
-    required: true 
+    default: Date.now()
   },
 });
 

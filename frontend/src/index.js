@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
+        path: '/home',
         element: <Home />,
       },
       {
@@ -34,7 +34,22 @@ const router = createBrowserRouter([
   },
   {
     path: '/signup',
-    element: <Signup />
+    element: <Signup />,
+    action: async ({ request }) =>  {
+      const formData = await request.formData();
+      const formBody = Object.fromEntries(formData);
+
+      const data = await fetch('http://localhost:9000/users/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: await JSON.stringify(formBody)
+      });
+
+      console.log(await data.json())
+      return null;
+    }
   },
 ]);
 
