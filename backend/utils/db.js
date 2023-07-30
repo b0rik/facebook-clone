@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose.set("strictQuery", false);
 
-const mongoDBUri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.koxt7dl.mongodb.net/facebook_clone?retryWrites=true&w=majority`;
+const mongoDBUri = process.env.MONGODB_URI;
 
 const connectDB = async () => {
   try{
