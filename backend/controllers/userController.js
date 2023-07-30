@@ -1,7 +1,8 @@
 const asyncHandler = require('express-async-handler');
 
-const User = require('../models/User');
 const auth = require('../utils/auth');
+
+const User = require('../models/User');
 
 // Create a user after the details were validated with validation middleware
 exports.userCreate = asyncHandler(async (req, res, next) => {
@@ -25,3 +26,7 @@ exports.userCreate = asyncHandler(async (req, res, next) => {
 
   res.json({ ok: true });
 });
+
+// exports.userLogin = asyncHandler(async (req, res, next) => {
+//   res.send(req.user);
+// });

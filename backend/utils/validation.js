@@ -42,11 +42,7 @@ exports.userLoginValidation = [
   body('email', 'Invalid email.')
     .trim()
     .isEmail()
-    .toLowerCase()
-    .custom(async value => {
-      const existingUser = await User.findOne({ email: value }).exec();
-      if (!existingUser) throw new Error("A user with this email doesn't exists.");
-    }),
+    .toLowerCase(),
   body('password')
     .notEmpty(),
   (req, res, next) => {

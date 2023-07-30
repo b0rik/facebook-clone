@@ -7,13 +7,13 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors')
 
+const app = express();
+
 const connectDB = require('./utils/db');
 
 const commentsRouter = require('./routes/comments');
 const postsRouter = require('./routes/posts');
 const usersRouter = require('./routes/users');
-
-const app = express();
 
 connectDB();
 
@@ -28,9 +28,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-app.use('/testAPI', (req, res) => {
-  res.send('API is working!')
-});
 app.use('/comments', commentsRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
