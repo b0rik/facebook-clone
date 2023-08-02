@@ -1,17 +1,12 @@
-const asyncHandler = require('express-async-handler');
+const asyncHandler = require("express-async-handler");
 
-const User = require('../models/User');
-const auth = require('../utils/auth');
+const auth = require("../utils/auth");
+
+const User = require("../models/User");
 
 // Create a user after the details were validated with validation middleware
 exports.userCreate = asyncHandler(async (req, res, next) => {
-  const {
-    profilePicture,
-    name,
-    email,
-    password,
-    dateOfBirth,
-  } = req.body;
+  const { profilePicture, name, email, password, dateOfBirth } = req.body;
 
   hashedPassword = await auth.getHashedPassword(password);
 
@@ -20,8 +15,15 @@ exports.userCreate = asyncHandler(async (req, res, next) => {
     name,
     email,
     hashedPassword,
-    dateOfBirth
+    dateOfBirth,
   });
 
   res.json({ ok: true });
+});
+
+exports.userLogin = asyncHandler(async (req, res, next) => {
+  auth.configuredPassport.authenticate("local", {
+    failureRedirect: "/auth/badLogin",
+    successRedirect: "/auth/login",
+  })(req, res, next);
 });
