@@ -4,8 +4,11 @@ import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
+import store from './utils/state/store';
 import { signupAction } from './routes/signup';
+import { loginAction } from './routes/login';
 
 import Root from './routes/root';
 import Home from './routes/home';
@@ -32,7 +35,8 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <Login />
+    element: <Login />,
+    action: loginAction
   },
   {
     path: '/signup',
@@ -44,6 +48,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+    <Provider stpre={store}>
+      <RouterProvider router={router} />
+    </Provider>
+   </React.StrictMode>
 );

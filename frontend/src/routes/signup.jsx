@@ -11,7 +11,7 @@ const signupAction = async ({ request }) => {
   const postBody = Object.fromEntries(formData);
   const postBodyJSON = await JSON.stringify(postBody);
 
-  // Send form data to server to create use
+  // Send form data to server to create user
   const response = await fetch('http://localhost:9000/users/create', {
     method: 'POST',
     headers: {
