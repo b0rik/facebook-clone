@@ -1,10 +1,17 @@
-import { useActionData, redirect, useNavigate } from 'react-router-dom';
+import {
+  useActionData,
+  redirect,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 
-import FormPage from '../components/formPage/formPage';
-import FormInput from '../components/formPage/formInput';
-import Button from '../components/button';
+import { useSelector } from "react-redux";
 
-import '../styles/signup.css';
+import FormPage from "../components/formPage/formPage";
+import FormInput from "../components/formPage/formInput";
+import Button from "../components/button";
+
+import "../styles/signup.css";
 
 const signupAction = async ({ request }) => {
   const formData = await request.formData();
@@ -12,10 +19,10 @@ const signupAction = async ({ request }) => {
   const postBodyJSON = await JSON.stringify(postBody);
 
   // Send form data to server to create user
-  const response = await fetch('http://localhost:9000/users/create', {
-    method: 'POST',
+  const response = await fetch("http://localhost:9000/users/create", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: postBodyJSON,
   });
@@ -28,65 +35,72 @@ const signupAction = async ({ request }) => {
   }
 
   // If user created successfuly then redirect to the login page
-  alert('You are signed up! Please log in.');
-  return redirect('/login');
-}
+  alert("You are signed up! Please log in.");
+  return redirect("/login");
+};
 
 const Signup = () => {
   const errors = useActionData() || [];
   const navigate = useNavigate();
+  const userData = useSelector((state) => state.user.data);
 
-  return (
+  return userData ? (
+    <Navigate to="/home" />
+  ) : (
     <div className="signup">
       <FormPage title="fesbuk.">
-        <FormInput 
+        <FormInput
           id="name"
           type="text"
           label="name"
           placeholder="enter your name"
-          errors={errors.filter(err => err.path === 'name')}
+          errors={errors.filter((err) => err.path === "name")}
         />
-        <FormInput 
+        <FormInput
           id="email"
           type="email"
           label="email"
           placeholder="enter your email"
-          errors={errors.filter(err => err.path === 'email')}
+          errors={errors.filter((err) => err.path === "email")}
         />
-        <FormInput 
+        <FormInput
           id="password"
           type="password"
           label="password"
           placeholder="enter your password"
-          errors={errors.filter(err => err.path === 'password')}
+          errors={errors.filter((err) => err.path === "password")}
         />
-        <FormInput 
+        <FormInput
           id="passwordConfirm"
           type="password"
           label="confirm password"
           placeholder="enter your password again"
-          errors={errors.filter(err => err.path === 'passwordConfirm')}
+          errors={errors.filter((err) => err.path === "passwordConfirm")}
         />
-        <FormInput 
+        <FormInput
           id="dateOfBirth"
           type="date"
           label="date of birth"
           placeholder=""
-          errors={errors.filter(err => err.path === 'dateOfBirth')}
+          errors={errors.filter((err) => err.path === "dateOfBirth")}
         />
-        <FormInput 
+        <FormInput
           id="profilePicture"
           type="file"
           label="profile picture"
           placeholder=""
         />
         <div className="signup__buttons">
-          <Button text="sign up"/>
+          <Button text="sign up" />
           <p>or</p>
-          <Button text="login" inverted={true} onClick={(e) => {
-            e.preventDefault();
-            navigate('/login');
-          }}/>
+          <Button
+            text="login"
+            inverted={true}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/login");
+            }}
+          />
         </div>
       </FormPage>
     </div>

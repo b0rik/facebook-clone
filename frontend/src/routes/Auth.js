@@ -1,13 +1,13 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const Auth = () => {
+const Auth = ({ children }) => {
   const { loading, data } = useSelector(state => state.user);
 
   if (loading) return <h1>loading!</h1>
   if (!data) return <Navigate to='login' />
 
-  return <Outlet />
+  return children;
 } 
 
 export default Auth;
