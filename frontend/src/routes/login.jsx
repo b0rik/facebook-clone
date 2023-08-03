@@ -1,5 +1,8 @@
 import { useNavigate, useActionData, redirect } from 'react-router-dom';
 
+import store from '../utils/state/store';
+import { fetchUser } from '../utils/state/actions/userActions';
+
 import FormPage from '../components/formPage/formPage';
 import FormInput from '../components/formPage/formInput';
 import Button from '../components/button';
@@ -15,25 +18,31 @@ const loginAction = async ({ request }) => {
   const response = await fetch('http://localhost:9000/users/login', {
     method: 'POST',
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    // credentials: 'include',
+    withCredentials: true,
+    credentials: 'include',
     body: postBodyJSON,
   });
 
   const responseJSON = await response.json();
 
+  // display errors
   if (responseJSON.errors) {
     return responseJSON.errors;
   }
-
-  console.log(responseJSON)
+ 
+  // if details are wrong
   if (!responseJSON.ok) {
     return [{ error: 'Incorrect email or password.' }];
   }
 
+  // save logged in user state
+  store.dispatch(fetchUser());
+
   alert('You are logged in!');
-  return null;
+  return redirect('/home');
 }
 const Login = () => {
   const errors = useActionData() || [];

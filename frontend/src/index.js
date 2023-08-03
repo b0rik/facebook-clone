@@ -17,6 +17,8 @@ import Login from './routes/login';
 import Signup from './routes/signup';
 import ErrorPage from './error-page';
 
+import { fetchUser } from './utils/state/actions/userActions';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -45,10 +47,12 @@ const router = createBrowserRouter([
   },
 ]);
 
+store.dispatch(fetchUser());
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider stpre={store}>
+    <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
    </React.StrictMode>
