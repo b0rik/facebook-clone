@@ -1,12 +1,17 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import Auth from './Auth';
-import Navbar from '../components/navbar/navbar';
+import Auth from "./Auth";
+import Navbar from "../components/navbar/navbar";
 
-import '../styles/root.css';
+import "../styles/root.css";
 
 const Root = () => {
-  return (  
+  const userData = useSelector((state) => state.user.data);
+
+  return !userData ? (
+    <Navigate to="/login" />
+  ) : (
     <Auth>
       <div className="container">
         <header className="header">
@@ -15,11 +20,9 @@ const Root = () => {
         <main>
           <Outlet />
         </main>
-        <footer>
-        </footer>
+        <footer></footer>
       </div>
     </Auth>
-    
   );
 };
 

@@ -8,7 +8,7 @@ import '../../styles/navbar/navbar.css';
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <Link to={'/'} className="navbar__logo">
+      <Link to={'/home'} className="navbar__logo">
         fesbuk.
       </Link>
       <SearchBar />

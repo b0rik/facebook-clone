@@ -7,4 +7,6 @@ router.post('/create', validation.userSignupValidation, userController.userCreat
 
 router.post('/login', validation.userLoginValidation, userController.userLogin);
 
+router.post('/logout', userController.userLogout);
+
 module.exports = router;

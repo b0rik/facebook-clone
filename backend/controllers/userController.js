@@ -28,13 +28,9 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
   })(req, res, next);
 });
 
-// exports.userLogin = asyncHandler(async (req, res, next) => {
-//   auth.configuredPassport.authenticate("local", (err, user) => {
-//     if (err || !user) return res.json({ ok: false });
-//     req.login(user, (err) => {
-//       if (err) return next(err);
-//       else return res.json({ok: true, id: user._id, name: user.name});
-//     })
-//   })(req, res, next);
-// });
-
+exports.userLogout = asyncHandler(async (req, res, next) => {
+  req.logout(err => {
+    if (err) return next(err);
+    res.redirect('/auth/logout');
+  });
+});
