@@ -8,7 +8,7 @@ const PostHeader = ({ author, date }) => {
   return (
     <div className="post-header">
       <div className="post-header__image">
-        <img src={author.profile_picture} alt="" />
+        <img src={author.profilePicture} alt="" />
       </div>
       <div className="post-header__content">
         <img src={postIcon} alt="post icon" className="post-header__icon"></img>

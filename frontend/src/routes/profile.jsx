@@ -1,3 +1,7 @@
+import { useSelector } from 'react-redux';
+
+import { useGetPostsQuery } from '../utils/state/apiSlice';
+
 import Content from '../components/content/content';
 import Side from '../components/side/side';
 import ProfileInfo from '../components/side/profileInfo';
@@ -9,6 +13,26 @@ import Post from '../components/post/post';
 import '../styles/page.css';
 
 const Profile = () => {
+  const { id } = useSelector(state => state.user.data)
+
+  const {
+    data: posts = [],
+    isLoading,
+    isSuccess,
+    isError,
+    error
+  } = useGetPostsQuery();
+  
+  let content;
+  
+  if (isLoading) {
+    content = <h1>Loading...</h1>;
+  } else if (isSuccess) {
+    content = posts.filter(post => post.id === id).map(post => <Post post={post} />);
+  } else if (isError) {
+    content = <h1>{error}</h1>;
+  }
+
   return (
     <div className='page'>
       <Side borderRight={false}>
@@ -18,10 +42,7 @@ const Profile = () => {
       <Content>
         <PostForm />
         <Title>Your posts</Title>
-        <Post post={''}/>
-        <Post post={''}/>
-        <Post post={''}/>
-        <Post post={''}/>
+        {content}
       </Content>
     </div>
   );

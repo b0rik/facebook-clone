@@ -1,20 +1,20 @@
-const bcrypt = require("bcrypt");
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
+const bcrypt = require('bcrypt');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
-const User = require("../models/User");
+const User = require('../models/User');
 
 const SALT_ROUNDS = 10;
 
 passport.use(
   new LocalStrategy(
     {
-      usernameField: "email",
+      usernameField: 'email',
     },
     async (email, password, cb) => {
       const user = await User.findOne({ email: email }).exec();
       if (!user || !(await validPassword(password, user.hashedPassword))) {
-        return cb(null, false, { message: "Incorrect email or password" });
+        return cb(null, false, { message: 'Incorrect email or password' });
       }
       return cb(null, user);
     }
@@ -24,7 +24,7 @@ passport.use(
 passport.serializeUser((user, cb) => {
   process.nextTick(() => {
     cb(null, {
-      id: user._id
+      id: user._id,
     });
   });
 });

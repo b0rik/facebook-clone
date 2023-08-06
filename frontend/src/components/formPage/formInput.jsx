@@ -1,7 +1,8 @@
 import '../../styles/form-page/form-input.css';
 
 const FormInput = ({ id, type, label, placeholder, errors = [] }) => {
-  const errorsListItems = errors.map(error => <li>{error.msg}</li>);
+  const errorsListItems = errors.map((error, index) => <li key={index}>{error.msg}</li>);
+  console.log(errors)
   const inputFieldClassName = `form-input__input-field ${errors.length > 0 ? 'form-input__input-field--error' : ''}`;
 
   return (

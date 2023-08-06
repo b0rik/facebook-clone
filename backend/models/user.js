@@ -23,43 +23,43 @@ const UserSchema = new Schema({
   },
   friends: {
     type: [{ 
-    type:Schema.Types.ObjectId,
-    ref: 'User' 
+      type:Schema.Types.ObjectId,
+      ref: 'User' 
     }],
     default: []
   },
   posts: {
     type: [{ 
-    type:Schema.Types.ObjectId,
-    ref: 'Post' 
+      type:Schema.Types.ObjectId,
+      ref: 'Post' 
     }],
     default: []
   },
   sentFriendRequests: {
     type: [{ 
-    type:Schema.Types.ObjectId,
-    ref: 'FriendRequest' 
+      type:Schema.Types.ObjectId,
+      ref: 'FriendRequest' 
     }],
     default: []
   },
   pendingFriendRequests: {
     type: [{ 
-    type:Schema.Types.ObjectId,
-    ref: 'FriendRequest' 
+      type:Schema.Types.ObjectId,
+      ref: 'FriendRequest' 
     }],
     default: []
   },
   likes: {
     type: [{
-    type:Schema.Types.ObjectId, 
-    ref: 'Like' 
+      type:Schema.Types.ObjectId, 
+      ref: 'Like' 
     }],
     default: []
   },
   comments: {
     type: [{ 
-    type:Schema.Types.ObjectId,
-    ref: 'Comment' 
+      type:Schema.Types.ObjectId,
+      ref: 'Comment' 
     }],
     default: []
   },
