@@ -14,7 +14,7 @@ export const apiSlice = createApi({
       query: initialPost => ({
         url: '/posts/addPost',
         method: 'POST',
-        body: initialPost
+        body: initialPost,
       })
     })
   })
