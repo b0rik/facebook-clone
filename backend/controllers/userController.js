@@ -95,9 +95,7 @@ exports.userLogout = asyncHandler(async (req, res, next) => {
     return res.status(200).json({
       status: 'success',
       message: 'User successfuly logged out.',
-      data: {
-        id: user._id
-      }
+      data: { id: null }
     });
   });
 });

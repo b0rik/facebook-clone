@@ -1,28 +1,28 @@
-import { Link, redirect } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react';
 
+import { useLogoutUserMutation } from '../../utils/state/apiSlice';
 import store from '../../utils/state/store';
 import { fetchUser } from '../../utils/state/actions/userActions';
 
 import '../../styles/navbar/navLinks.css';
 
-const logout = async () => {
-  const response = await fetch("http://localhost:9000/users/logout", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    withCredentials: true,
-    credentials: "include",
-  });
-
-  store.dispatch(fetchUser());
-
-  alert("You are logged out!");
-  return redirect("/login");
-};
-
 const NavLinks = () => {
+  const [logoutUser, { isError, isSuccess }] = useLogoutUserMutation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSuccess) {
+      store.dispatch(fetchUser());
+      alert('You are logged out.');
+      return navigate('/login');
+    }
+
+    if (isError) {
+      alert('There was an error logging you out. Please try again.');
+    }
+  }, [isError, isSuccess, navigate]);
+
   return (
     <ul className="nav-links">
       <li className="nav-links__link">
@@ -32,7 +32,12 @@ const NavLinks = () => {
         <Link to={'/profile'}>Profile</Link>
       </li>
       <li className="nav-links__link">
-        <button onClick={logout}>Logout</button>
+        <button onClick={e => { 
+          e.preventDefault(); 
+          logoutUser();
+        }}>
+          Logout
+        </button>
       </li>
     </ul>
   );
