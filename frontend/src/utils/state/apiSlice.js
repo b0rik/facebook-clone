@@ -16,8 +16,15 @@ export const apiSlice = createApi({
         method: 'POST',
         body: initialPost,
       })
+    }),
+    addNewUser: builder.mutation({
+      query: (userData) => ({
+        url: '/users/create',
+        method: 'POST',
+        body: userData,
+      })
     })
   })
 });
 
-export const { useGetPostsQuery, useAddNewPostMutation } = apiSlice;
+export const { useGetPostsQuery, useAddNewPostMutation, useAddNewUserMutation } = apiSlice;

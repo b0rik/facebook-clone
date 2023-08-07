@@ -28,7 +28,7 @@ const Profile = () => {
   if (isLoading) {
     content = <h1>Loading...</h1>;
   } else if (isSuccess) {
-    content = posts.filter(post => post.id === id).map(post => <Post post={post} />);
+    content = posts.filter(post => post.id === id).map(post => <Post key={post._id} post={post} />);
   } else if (isError) {
     content = <h1>{error}</h1>;
   }

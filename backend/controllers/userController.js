@@ -9,17 +9,35 @@ const FriendRequest = require('../models/FriendRequest');
 exports.userCreate = asyncHandler(async (req, res, next) => {
   const { profilePicture, name, email, password, dateOfBirth } = req.body;
 
-  hashedPassword = await auth.getHashedPassword(password);
+  try {
+    hashedPassword = await auth.getHashedPassword(password);
 
-  await User.create({
-    profilePicture,
-    name,
-    email,
-    hashedPassword,
-    dateOfBirth,
-  });
+    const newUser = new User({
+      profilePicture,
+      name,
+      email,
+      hashedPassword,
+      dateOfBirth,
+    });
 
-  res.json({ ok: true });
+    newUser.save();
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        message: 'New User Created.',
+        id: newUser._id
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      data: {
+        message: 'There was an error creating a new user.',
+        error
+      }
+    });
+  }
 });
 
 exports.userLogin = asyncHandler(async (req, res, next) => {

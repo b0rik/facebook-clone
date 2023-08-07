@@ -1,7 +1,6 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import Auth from "./Auth";
 import Navbar from "../components/navbar/navbar";
 
 import "../styles/root.css";
@@ -12,17 +11,15 @@ const Root = () => {
   return !userData ? (
     <Navigate to="/login" />
   ) : (
-    <Auth>
-      <div className="container">
-        <header className="header">
-          <Navbar />
-        </header>
-        <main>
-          <Outlet />
-        </main>
-        <footer></footer>
-      </div>
-    </Auth>
+    <div className="container">
+      <header className="header">
+        <Navbar />
+      </header>
+      <main>
+        <Outlet />
+      </main>
+      <footer></footer>
+    </div>
   );
 };
 

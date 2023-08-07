@@ -32,8 +32,17 @@ exports.userSignupValidation = [
     .withMessage('Date of birth cant be empty.')
     .isDate(),
   (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.send(errors);
+    const { errors } = validationResult(req);
+    
+    if (errors.length) {
+      return res.status(400).json({
+        status: 'error',
+        data: {
+          message: 'The data of the signing up user is not valid.',
+          errors
+        }
+      });
+    }
     next();
   },
 ];

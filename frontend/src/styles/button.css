@@ -15,3 +15,10 @@
   background-color: var(--primary-gray);
   color: var(--primary-blue);
 }
+
+.button:disabled {
+  background-color: var(--secondary-blue);
+  color: var(--primary-gray);
+  border-color: var(--primary-gray);
+  cursor: not-allowed;
+}
