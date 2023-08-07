@@ -4,7 +4,7 @@ const LocalStrategy = require('passport-local');
 
 const User = require('../models/User');
 
-const SALT_ROUNDS = 10;
+const SALT_ROUNDS = process.env.SALT_ROUNDS;
 
 passport.use(
   new LocalStrategy(
@@ -12,11 +12,16 @@ passport.use(
       usernameField: 'email',
     },
     async (email, password, cb) => {
-      const user = await User.findOne({ email: email }).exec();
-      if (!user || !(await validPassword(password, user.hashedPassword))) {
-        return cb(null, false, { message: 'Incorrect email or password' });
+      try{
+        const user = await User.findOne({ email: email }).exec();
+        if (!user || !(await validPassword(password, user.hashedPassword))) {
+          return cb(null, false, { message: 'Incorrect email or password' });
+        }
+        return cb(null, user);
+      } catch(error) {
+        console.error('Error authenticating user:', error.message);
+        return cb(error);
       }
-      return cb(null, user);
     }
   )
 );
@@ -36,11 +41,22 @@ passport.deserializeUser((user, cb) => {
 });
 
 const validPassword = async (password, hashedPassword) => {
-  return await bcrypt.compare(password, hashedPassword);
+  try{
+    return await bcrypt.compare(password, hashedPassword);
+  } catch (error) {
+    console.error('Error validation password:', error.message);
+    throw error;
+  }
+
 };
 
 const getHashedPassword = async (password) => {
-  return await bcrypt.hash(password, SALT_ROUNDS);
+  try {
+    return await bcrypt.hash(password, SALT_ROUNDS);
+  } catch (error) {
+    console.error('Error while hashing password:', error.message);
+    throw error;
+  }
 };
 
 module.exports = { getHashedPassword, configuredPassport: passport };

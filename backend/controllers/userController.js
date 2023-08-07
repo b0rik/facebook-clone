@@ -22,7 +22,7 @@ exports.userCreate = asyncHandler(async (req, res, next) => {
 
     newUser.save();
 
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       data: {
         message: 'New User Created.',
@@ -30,7 +30,7 @@ exports.userCreate = asyncHandler(async (req, res, next) => {
       }
     });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: 'error',
       data: {
         message: 'There was an error creating a new user.',
@@ -41,16 +41,64 @@ exports.userCreate = asyncHandler(async (req, res, next) => {
 });
 
 exports.userLogin = asyncHandler(async (req, res, next) => {
-  auth.configuredPassport.authenticate("local", {
-    failureRedirect: "/auth/badLogin",
-    successRedirect: "/auth/login",
+  auth.configuredPassport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return res.status(500).json({
+        status: 'error',
+        message: 'Error authenticating user.',
+        data: {
+          error: err
+        }
+      });
+    }
+
+    if(!user) {
+      return res.status(400).json({
+        status: 'error',
+        message: info.message,
+        data: { id: null }
+      });
+    }
+
+    req.login(user, err => {
+      if (err) {
+        console.error('Error looggin in user:', err.message);
+        return res.status(500).json({
+          status: 'error',
+          message: 'Error logging in user.',
+          data: { id: null }
+        });
+      }
+
+      return res.status(200).json({
+        status: 'success',
+        message: 'User successfuly logged in.',
+        data: {
+          id: user._id
+        }
+      });
+    });
   })(req, res, next);
 });
 
 exports.userLogout = asyncHandler(async (req, res, next) => {
   req.logout(err => {
-    if (err) return next(err);
-    res.redirect('/auth/logout');
+    if (err) {
+      console.error('Error looggin out user:', err.message);
+      return res.status(500).json({
+        status: 'error',
+        message: 'Error logging out user.',
+        data: { id: null }
+      });
+    }
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'User successfuly logged out.',
+      data: {
+        id: user._id
+      }
+    });
   });
 });
 

@@ -7,7 +7,6 @@ import {
 import { Provider } from 'react-redux';
 
 import store from './utils/state/store';
-import { loginAction } from './routes/login';
 
 import Root from './routes/root';
 import Home from './routes/home';
@@ -18,7 +17,6 @@ import ErrorPage from './error-page';
 
 import { fetchUser } from './utils/state/actions/userActions';
 
-store.dispatch(fetchUser());
 
 const router = createBrowserRouter([
   {
@@ -39,13 +37,14 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
-    action: loginAction
   },
   {
     path: '/signup',
     element: <Signup />,
   },
 ]);
+
+store.dispatch(fetchUser());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
