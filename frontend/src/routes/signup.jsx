@@ -90,9 +90,9 @@ const Signup = () => {
         <div className='signup__buttons'>
           <Button
             text='sign up'
-            onClick={(e) => {
+            onClick={async e => {
               e.preventDefault();
-              addUser({
+              await addUser({
                 name,
                 email,
                 password,

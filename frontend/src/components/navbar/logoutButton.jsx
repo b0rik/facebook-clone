@@ -24,9 +24,9 @@ const LogoutButton = ({ children }) => {
   }, [isError, isSuccess, navigate]);
 
   return (
-    <button className='logout-button' onClick={e => { 
+    <button className='logout-button' onClick={async e => { 
       e.preventDefault(); 
-      logoutUser();
+      await logoutUser();
     }}>
       {children}
     </button>

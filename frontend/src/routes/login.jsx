@@ -59,9 +59,9 @@ const Login = () => {
         <div className='login__buttons'>
           <Button 
             text='login'
-            onClick={e => {
+            onClick={async e => {
               e.preventDefault();
-              loginUser({
+              await loginUser({
                 email,
                 password
               });
