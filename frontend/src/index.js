@@ -17,7 +17,6 @@ import ErrorPage from './error-page';
 
 import { fetchUser } from './utils/state/actions/userActions';
 
-
 const router = createBrowserRouter([
   {
     path: '/',
