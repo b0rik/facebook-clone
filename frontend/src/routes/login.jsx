@@ -21,7 +21,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const errors = error?.data?.data?.errors ? error.data.data.errors : [];
-
+  
   useEffect(() => {
     if (isSuccess) {
       alert('You are loggend in!');
@@ -37,7 +37,7 @@ const Login = () => {
   ) : (
     <div className='login'>
       <FormPage title='fesbuk.'>
-        {error?.data?.data?.id === null && <p className='login__error'>{error.data.message}</p>}
+        {error && error.data?.message === 'Incorrect email or password' && <p className='login__error'>{error.data.message}</p>}
         <FormInput
           id='email'
           type='email'

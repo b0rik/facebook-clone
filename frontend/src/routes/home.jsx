@@ -12,7 +12,7 @@ const Home = () => {
         <Feed />
       </Content>
       <Side borderLeft={false}>
-        <Notifications />
+        {/* <Notifications /> */}
       </Side>
     </div>
   );
