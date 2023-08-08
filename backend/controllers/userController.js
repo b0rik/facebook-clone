@@ -24,16 +24,16 @@ exports.userCreate = asyncHandler(async (req, res, next) => {
 
     return res.status(200).json({
       status: 'success',
+      message: 'New User Created.',
       data: {
-        message: 'New User Created.',
         id: newUser._id
       }
     });
   } catch (error) {
     return res.status(500).json({
       status: 'error',
+      message: 'There was an error creating a new user.',
       data: {
-        message: 'There was an error creating a new user.',
         error
       }
     });
@@ -56,7 +56,7 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
       return res.status(400).json({
         status: 'error',
         message: info.message,
-        data: { id: null }
+        data: {}
       });
     }
 
@@ -66,7 +66,7 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
         return res.status(500).json({
           status: 'error',
           message: 'Error logging in user.',
-          data: { id: null }
+          data: {}
         });
       }
 
@@ -88,28 +88,21 @@ exports.userLogout = asyncHandler(async (req, res, next) => {
       return res.status(500).json({
         status: 'error',
         message: 'Error logging out user.',
-        data: { id: null }
+        data: {}
       });
     }
 
     return res.status(200).json({
       status: 'success',
       message: 'User successfuly logged out.',
-      data: { id: null }
+      data: {}
     });
   });
 });
 
 exports.getUserInfo = asyncHandler(async (id) => {
   const user = await User.findOne({ _id: id })
-    .select('name profilePicture pendingFriendRequests dateOfBirth')
-    .populate({
-      path: 'pendingFriendRequests',
-      populate: {
-        path: 'from',
-        select: '_id name'
-      }
-    })
+    .select('name profilePicture dateOfBirth')
     .exec();
 
   return user;
