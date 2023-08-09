@@ -8,9 +8,7 @@ import "../styles/root.css";
 const Root = () => {
   const userData = useSelector((state) => state.user.data);
 
-  return !userData ? (
-    <Navigate to="/login" />
-  ) : (
+  return (
     <div className="container">
       <header className="header">
         <Navbar />

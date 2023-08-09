@@ -7,7 +7,7 @@ import '../../styles/content/feed.css';
 
 const Feed = () => {
   const {
-    data: posts = [],
+    data: postsData,
     isLoading,
     isSuccess,
     isError,
@@ -19,7 +19,7 @@ const Feed = () => {
   if (isLoading) {
     content = <h1>Loading...</h1>;
   } else if (isSuccess) {
-    content = posts.map(post => <Post key={post._id} post={post} />);
+    content = postsData.data.posts.map(post => <Post key={post._id} post={post} />);
   } else if (isError) {
     content = <h1>{error}</h1>;
   }

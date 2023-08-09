@@ -102,7 +102,7 @@ exports.userLogout = asyncHandler(async (req, res, next) => {
 
 exports.getUserInfo = asyncHandler(async (id) => {
   const user = await User.findOne({ _id: id })
-    .select('name profilePicture dateOfBirth')
+    .select('_id')
     .exec();
 
   return user;

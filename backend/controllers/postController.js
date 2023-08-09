@@ -19,33 +19,60 @@ exports.addPost = asyncHandler(async (req, res, next) => {
   res.json({ok: true});
 });
 
-exports.getPosts = asyncHandler(async (req, res, next) => {
+exports.getPostsById = asyncHandler(async (req, res, next) => {
   const user = req.user;
   
-  if (!user) return next(new Error("Need to be logged in to fetch posts."));
+  // TODO: make middleware
+  if (!user) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Need to be logged in to fetch posts.',
+      data: {}
+    });
+  } 
   
-  const userData = await User.findOne({ _id: user.id })
-    .select('posts friends')
-    .populate({
-      path: 'posts',
-      populate: 'author'
-    })
-    .populate({
-      path: 'friends',
-      populate: 'posts',
-      select: 'posts'
-    })
-    .exec();
+  const queryId = Object.keys(req.params).length === 0 ? user.id : req.params.id;
 
-  const userPosts = userData.posts;
-  const friendsPosts = [];
-  userData.friends.forEach(friend => {
-    friend.posts.forEach(post => {friendsPosts.push(post)});
-  });
+  try {
+    const userData = await User.findOne({ _id: queryId })
+      .select('posts friends')
+      .populate({
+        path: 'posts',
+        populate: {
+          path: 'author',
+          select: '_id name profilePicture'
+        },
+      })
+      .populate({
+        path: 'friends',
+        populate: 'posts',
+        select: 'posts'
+      })
+      .exec();
   
-  const posts = [...userPosts, ...friendsPosts];
+    const userPosts = userData.posts;
+    const friendsPosts = [];
+    userData.friends.forEach(friend => {
+      friend.posts.forEach(post => {friendsPosts.push(post)});
+    });
+    
+    const posts = [...userPosts, ...friendsPosts];
+    
+    const sortedPosts = posts.sort((a, b) => b.date - a.date);
   
-  const sortedPosts = posts.sort((a, b) => b.date - a.date);
-
-  res.json(sortedPosts);
+    res.status(200).json({
+      status: 'success',
+      message: 'Fetched posts by user id.',
+      data: {
+        posts: sortedPosts,
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching posts by id:', error.message);
+    return res.status(500).json({
+      status: 'error',
+      message: 'Error fetching posts.',
+      data: {}
+    });
+  }
 });
