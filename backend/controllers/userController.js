@@ -109,7 +109,6 @@ exports.getUserInfo = asyncHandler(async (id) => {
 });
 
 exports.searchUsers = asyncHandler(async (req, res, next) => {
-  console.log(req.query.q)
   try {
     const isQuery = req.query.q && req.query.q.trim() !== '' && /^[A-Za-z\s]*$/.test(req.query.q);
     const users = isQuery

@@ -5,10 +5,12 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:9000',
     credentials: 'include',
+    tagTypes: ['Post'],
   }),
   endpoints: (builder) => ({
     getPosts: builder.query({
       query: () => '/posts',
+      providesTags: ['Post'],
     }),
     addNewPost: builder.mutation({
       query: (initialPost) => ({
@@ -16,6 +18,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body: initialPost,
       }),
+      invalidatesTags: ['Post'],
     }),
     addNewUser: builder.mutation({
       query: (userData) => ({
@@ -30,6 +33,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body: userData,
       }),
+      invalidatesTags: ['Post'],
     }),
     logoutUser: builder.mutation({
       query: (userData) => ({
