@@ -1,8 +1,8 @@
-const asyncHandler = require("express-async-handler");
+const asyncHandler = require('express-async-handler');
 
-const auth = require("../utils/auth");
+const auth = require('../utils/auth');
 
-const User = require("../models/User");
+const User = require('../models/User');
 const FriendRequest = require('../models/FriendRequest');
 
 // Create a user after the details were validated with validation middleware
@@ -26,47 +26,47 @@ exports.userCreate = asyncHandler(async (req, res, next) => {
       status: 'success',
       message: 'New User Created.',
       data: {
-        id: newUser._id
-      }
+        id: newUser._id,
+      },
     });
   } catch (error) {
     return res.status(500).json({
       status: 'error',
       message: 'There was an error creating a new user.',
       data: {
-        error
-      }
+        error,
+      },
     });
   }
 });
 
 exports.userLogin = asyncHandler(async (req, res, next) => {
-  auth.configuredPassport.authenticate("local", (err, user, info) => {
+  auth.configuredPassport.authenticate('local', (err, user, info) => {
     if (err) {
       return res.status(500).json({
         status: 'error',
         message: 'Error authenticating user.',
         data: {
-          error: err
-        }
+          error: err,
+        },
       });
     }
 
-    if(!user) {
+    if (!user) {
       return res.status(400).json({
         status: 'error',
         message: info.message,
-        data: {}
+        data: {},
       });
     }
 
-    req.login(user, err => {
+    req.login(user, (err) => {
       if (err) {
         console.error('Error looggin in user:', err.message);
         return res.status(500).json({
           status: 'error',
           message: 'Error logging in user.',
-          data: {}
+          data: {},
         });
       }
 
@@ -74,28 +74,28 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
         status: 'success',
         message: 'User successfuly logged in.',
         data: {
-          id: user._id
-        }
+          id: user._id,
+        },
       });
     });
   })(req, res, next);
 });
 
 exports.userLogout = asyncHandler(async (req, res, next) => {
-  req.logout(err => {
+  req.logout((err) => {
     if (err) {
       console.error('Error looggin out user:', err.message);
       return res.status(500).json({
         status: 'error',
         message: 'Error logging out user.',
-        data: {}
+        data: {},
       });
     }
 
     return res.status(200).json({
       status: 'success',
       message: 'User successfuly logged out.',
-      data: {}
+      data: {},
     });
   });
 });
@@ -106,4 +106,34 @@ exports.getUserInfo = asyncHandler(async (id) => {
     .exec();
 
   return user;
+});
+
+exports.searchUsers = asyncHandler(async (req, res, next) => {
+  console.log(req.query.q)
+  try {
+    const isQuery = req.query.q && req.query.q.trim() !== '' && /^[A-Za-z\s]*$/.test(req.query.q);
+    const users = isQuery
+      ? await User.find({
+          name: { $regex: req.query.q, $options: 'i' },
+        })
+          .select('_id name')
+          .exec()
+      : [];
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Search results.',
+      data: {
+        users,
+      },
+    });
+  } catch (error) {
+    console.error('Error searching users:', error.message);
+
+    return res.status(500).json({
+      status: 'error',
+      message: 'Error quering database.',
+      data: {},
+    });
+  }
 });

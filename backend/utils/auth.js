@@ -4,7 +4,7 @@ const LocalStrategy = require('passport-local');
 
 const User = require('../models/User');
 
-const SALT_ROUNDS = process.env.SALT_ROUNDS;
+const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
 
 passport.use(
   new LocalStrategy(

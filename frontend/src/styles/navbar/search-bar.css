@@ -45,13 +45,15 @@
 
 .search-bar__results {
   width: 100%;
+  max-height: 20rem;
+  overflow-y: scroll;
+  z-index: 99;
   padding-left: 0;
   background-color: var(--white);
   position: absolute;
   border: 1px solid var(--secondary-blue);
   box-shadow: 2px 2px 4px var(--primary-blue);
   display: none;
-  /* display:flex; */
   flex-direction: column;
 }
 
