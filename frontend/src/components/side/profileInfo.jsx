@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useGetUserByIdQuery } from '../../utils/state/apiSlice';
 
 import SideImage from "./sideImage";
 import SideTitle from './sideTitle';
@@ -8,8 +8,7 @@ import '../../styles/side/profile-info.css';
 import avatarPlaceholder from '../../assets/avatar-placeholder.png';
 
 const ProfileInfo = ({ user }) => {
-  const { name, profilePicture, dateOfBirth } = useSelector(state => state.user.data);
-
+  const { name, profilePicture, dateOfBirth, joinDate } = user;
 
   return (
     <div className="profile-info">
@@ -17,6 +16,7 @@ const ProfileInfo = ({ user }) => {
       <SideTitle>Information</SideTitle>
       <SideInfo>NAME: {name.slice(0, 1).toUpperCase() + name.slice(1)}</SideInfo>
       <SideInfo>BORN ON: {new Date(dateOfBirth).toLocaleDateString()}</SideInfo>
+      <SideInfo>JOINED ON: {new Date(joinDate).toLocaleDateString()}</SideInfo>
     </div>
   );
 };

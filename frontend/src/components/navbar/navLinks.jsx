@@ -11,7 +11,7 @@ const NavLinks = () => {
         <Link to={'/home'}>Home</Link>
       </li>
       <li className="nav-links__link">
-        <Link to={'/profile'}>Profile</Link>
+        <Link to={'/users'}>Profile</Link>
       </li>
       <li className="nav-links__link">
         <LogoutButton>Logout</LogoutButton>

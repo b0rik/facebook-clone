@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const auth = require('../utils/auth');
-
 const User = require('../models/User');
 const FriendRequest = require('../models/FriendRequest');
 
@@ -133,6 +133,46 @@ exports.searchUsers = asyncHandler(async (req, res, next) => {
       status: 'error',
       message: 'Error quering database.',
       data: {},
+    });
+  }
+});
+
+exports.getUserById = asyncHandler(async (req, res, next) => {
+  const user = req.user;
+  
+  // TODO: make middleware
+  if (!user) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Need to be logged in to fetch users.',
+      data: {}
+    });
+  } 
+  
+  const queryId = Object.keys(req.params).length === 0 || !ObjectId.isValid(req.params.id) ? user.id : req.params.id;
+
+  try {
+    const userData = await User.findOne({ _id: queryId })
+    .select('_id profilePicture name dateOfBirth friends joinDate')
+    .populate({
+      path: 'friends',
+      select: '_id profilePicture name'
+    })
+    .exec();
+  
+    res.status(200).json({
+      status: 'success',
+      message: 'Fetched user by id.',
+      data: {
+        user: userData,
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching user by id:', error.message);
+    return res.status(500).json({
+      status: 'error',
+      message: 'Error fetching user.',
+      data: {}
     });
   }
 });

@@ -7,10 +7,12 @@ router.post('/create', validation.userSignupValidation, userController.userCreat
 
 router.post('/login', validation.userLoginValidation, userController.userLogin);
 
-
-//TODO need to add user authorization
 router.post('/logout', userController.userLogout);
 
+//TODO need to add user authorization
 router.get('/search', userController.searchUsers);
+
+router.get('/:id', userController.getUserById);
+router.get('/', userController.getUserById);
 
 module.exports = router;

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import { useLogoutUserMutation } from '../../utils/state/apiSlice';
 import store from '../../utils/state/store';
-import { fetchUser } from '../../utils/state/actions/userActions';
+import { getActiveUser } from '../../utils/state/actions/userActions';
 
 import '../../styles/navbar/logout-button.css';
 
@@ -13,7 +13,7 @@ const LogoutButton = ({ children }) => {
 
   useEffect(() => {
     if (isSuccess) {
-      store.dispatch(fetchUser());
+      store.dispatch(getActiveUser());
       alert('You are logged out.');
       return navigate('/login');
     }

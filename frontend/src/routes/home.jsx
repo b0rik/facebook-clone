@@ -6,10 +6,11 @@ import Notifications from '../components/side/notifications';
 import '../styles/page.css';
 
 const Home = () => {
+
   return (
     <div className="page">
       <Content>
-        <Feed />
+        <Feed title="Feed"/>
       </Content>
       <Side borderLeft={false}>
         {/* <Notifications /> */}

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const fetchUser = createAsyncThunk('fetchUser', 
+const getActiveUser = createAsyncThunk('getActiveUser', 
   async () => {
     const response = await fetch('http://localhost:9000/auth/user', {
       method: 'GET',
@@ -17,4 +17,4 @@ const fetchUser = createAsyncThunk('fetchUser',
     return user;
   });
 
-export { fetchUser };
+export { getActiveUser };

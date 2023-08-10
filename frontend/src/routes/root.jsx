@@ -6,9 +6,13 @@ import Navbar from "../components/navbar/navbar";
 import "../styles/root.css";
 
 const Root = () => {
-  const userData = useSelector((state) => state.user.data);
+  const { data: userData, loading } = useSelector((state) => state.user);
 
-  return (
+  return loading ? (
+    null 
+  ) : !userData ? (
+    <Navigate to="/login" />
+  ) : (
     <div className="container">
       <header className="header">
         <Navbar />

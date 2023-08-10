@@ -1,3 +1,5 @@
+const ObjectId = require('mongoose').Types.ObjectId;
+
 const User = require("../models/User");
 const Post = require("../models/Post");
 const asyncHandler = require("express-async-handler");
@@ -31,7 +33,7 @@ exports.getPostsById = asyncHandler(async (req, res, next) => {
     });
   } 
   
-  const queryId = Object.keys(req.params).length === 0 ? user.id : req.params.id;
+  const queryId = Object.keys(req.params).length === 0 || !ObjectId.isValid(req.params.id)? user.id : req.params.id;
 
   try {
     const userData = await User.findOne({ _id: queryId })
@@ -64,6 +66,7 @@ exports.getPostsById = asyncHandler(async (req, res, next) => {
       status: 'success',
       message: 'Fetched posts by user id.',
       data: {
+        id: queryId,
         posts: sortedPosts,
       }
     });

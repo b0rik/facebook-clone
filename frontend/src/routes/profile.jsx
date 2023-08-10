@@ -1,48 +1,37 @@
-import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import { useGetPostsQuery } from '../utils/state/apiSlice';
+import { useGetUserByIdQuery } from '../utils/state/apiSlice';
 
 import Content from '../components/content/content';
 import Side from '../components/side/side';
 import ProfileInfo from '../components/side/profileInfo';
 import Friends from '../components/friends/friends';
 import PostForm from '../components/post/postForm';
-import Title from '../components/content/title';
-import Post from '../components/post/post';
+import Feed from '../components/content/feed';
 
 import '../styles/page.css';
 
 const Profile = () => {
-  const { id } = useSelector(state => state.user.data)
-
+  const params = useParams();
+  const userId = params.id ? params.id : '';
   const {
-    data: posts = [],
+    data: userData,
     isLoading,
-    isSuccess,
-    isError,
-    error
-  } = useGetPostsQuery();
+  } = useGetUserByIdQuery(userId);
+
+  if (isLoading) return null;
   
-  let content;
-  
-  if (isLoading) {
-    content = <h1>Loading...</h1>;
-  } else if (isSuccess) {
-    content = posts.filter(post => post.id === id).map(post => <Post key={post._id} post={post} />);
-  } else if (isError) {
-    content = <h1>{error}</h1>;
-  }
+  const { user } = userData.data;
 
   return (
     <div className='page'>
       <Side borderRight={false}>
-        <ProfileInfo user={''}/>
-        <Friends />
+        <ProfileInfo user={user} />
+        <Friends user={user} />
       </Side>
       <Content>
         <PostForm />
-        <Title>Your posts</Title>
-        {content}
+        <Feed title={`${user.name}'s Posts`} user={user} />
       </Content>
     </div>
   );
