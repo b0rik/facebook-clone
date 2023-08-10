@@ -20,7 +20,7 @@ const SearchBar = () => {
 
   const results = searchData?.data
     ? searchData.data.users.map((user) => (
-        <Link to={`/profile/${user.id}`} key={user.id} className='search-bar__result'>
+        <Link to={`/users/${user._id}`} key={user.id} className='search-bar__result'>
           {user.name}
         </Link>
       ))

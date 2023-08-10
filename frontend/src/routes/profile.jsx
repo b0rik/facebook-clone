@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { useGetUserByIdQuery } from '../utils/state/apiSlice';
 
@@ -13,13 +14,14 @@ import '../styles/page.css';
 
 const Profile = () => {
   const params = useParams();
+  const { data: currentUserData, loading: currentUserLoading } = useSelector(state => state.user)
   const userId = params.id ? params.id : '';
   const {
     data: userData,
     isLoading,
   } = useGetUserByIdQuery(userId);
 
-  if (isLoading) return null;
+  if (currentUserLoading || isLoading) return null;
   
   const { user } = userData.data;
 
@@ -30,7 +32,7 @@ const Profile = () => {
         <Friends user={user} />
       </Side>
       <Content>
-        <PostForm />
+        {user._id === currentUserData._id && <PostForm />}
         <Feed title={`${user.name}'s Posts`} user={user} />
       </Content>
     </div>

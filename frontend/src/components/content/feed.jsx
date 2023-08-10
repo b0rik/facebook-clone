@@ -6,7 +6,8 @@ import Title from './title';
 import '../../styles/content/feed.css';
 
 const Feed = ({ title, user }) => {
-  const id = user ? user.id : '';
+  const id = user ? user._id : '';
+  console.log(id)
   const {
     data: postsData,
     isLoading,
@@ -16,7 +17,6 @@ const Feed = ({ title, user }) => {
   } = useGetPostsQuery(id);
   
   let content;
-
   if (isLoading) {
     content = <h1>Loading...</h1>;
   } else if (isSuccess) {
