@@ -7,7 +7,6 @@ import '../../styles/content/feed.css';
 
 const Feed = ({ title, user }) => {
   const id = user ? user._id : '';
-  console.log(id)
   const {
     data: postsData,
     isLoading,

@@ -13,7 +13,7 @@ const SearchBar = () => {
   const [searchValue, setSearchValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const { data: searchData } = useSelector((state) => state.search);
-
+  const linkClicked = false;
   useEffect(() => {
     store.dispatch(searchUsers(searchValue));
   }, [searchValue]);
@@ -25,8 +25,8 @@ const SearchBar = () => {
           key={user.id}
           className='search-bar__result'
           onClick={() => {
-            setIsFocused(false);
             setSearchValue('')
+            setIsFocused(false)
           }}
         >
           {user.name}
@@ -45,7 +45,10 @@ const SearchBar = () => {
           onChange={(e) => {
             setSearchValue(e.target.value);
           }}
-          onFocus={() => setIsFocused(true)}
+          onFocus={() => setIsFocused(true)} 
+          onBlur={(e) => {
+            setTimeout(() => setIsFocused(false), 100)
+          }}
         />
         <span className='search-bar__icon'>
           <img src={searchIcon} alt='saerch icon' />
