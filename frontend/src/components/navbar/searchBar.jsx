@@ -20,7 +20,15 @@ const SearchBar = () => {
 
   const results = searchData?.data
     ? searchData.data.users.map((user) => (
-        <Link to={`/users/${user._id}`} key={user.id} className='search-bar__result'>
+        <Link
+          to={`/users/${user._id}`}
+          key={user.id}
+          className='search-bar__result'
+          onClick={() => {
+            setIsFocused(false);
+            setSearchValue('')
+          }}
+        >
           {user.name}
         </Link>
       ))
@@ -38,15 +46,19 @@ const SearchBar = () => {
             setSearchValue(e.target.value);
           }}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
         />
         <span className='search-bar__icon'>
           <img src={searchIcon} alt='saerch icon' />
         </span>
       </div>
       <div className='search-bar__results-container'>
-        <div className='search-bar__results' style={{ display: isFocused ? 'flex' : 'none' }}>
-          {(results.length > 0 && results) || <p className="search-bar__result">No results.</p>}
+        <div
+          className='search-bar__results'
+          style={{ display: isFocused ? 'flex' : 'none' }}
+        >
+          {(results.length > 0 && results) || (
+            <p className='search-bar__result'>No results.</p>
+          )}
         </div>
       </div>
     </div>
