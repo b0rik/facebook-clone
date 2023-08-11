@@ -20,10 +20,14 @@ const Feed = ({ title, user }) => {
     content = <h1>Loading...</h1>;
   } else if (isSuccess) {
     content = postsData.data.posts.filter(post => post.author._id === postsData.data.id).map(post => <Post key={post._id} post={post} />);
+    if (!content.length) {
+      content = <p style={{ borderTop: '2px solid var(--primary-gray)' }}>No posts. YET!</p>
+    }
   } else if (isError) {
     content = <h1>{error}</h1>;
   }
-
+  
+  console.log('dsadd',content)
   return (
     <div className="feed">
       <Title>{title}</Title>
