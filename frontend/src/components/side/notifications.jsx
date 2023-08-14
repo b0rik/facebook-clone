@@ -1,21 +1,24 @@
 import { useSelector } from 'react-redux';
 
 import SideTitle from './sideTitle';
-import SideInfo from './sideInfo';
+import FriendRequest from './friendRequest';
 
 import '../../styles/side/notifications.css';
 
-const Notifications = ({ children }) => {
+const Notifications = () => {
   const { pendingFriendRequests } = useSelector(state => state.user.data);
   
-  const notifications = pendingFriendRequests.map(friendRequest => {
-    return <SideInfo>{friendRequest.from.name} sent you a friend request.</SideInfo>;
+  const friendRequests = pendingFriendRequests.map(friendRequest => {
+    return <FriendRequest key={friendRequest._id} 
+      friendRequestId={friendRequest._id} 
+      fromUserId={friendRequest.from._id} 
+      name={friendRequest.from.name}/>
   });
 
   return (
     <div className="notifications">
       <SideTitle>Notifications</SideTitle>
-      {notifications}
+      {friendRequests}
     </div>
 
   );

@@ -15,8 +15,8 @@ const FriendRequestButton = ({ currentUser, profilePageUser }) => {
     e.preventDefault();
     try {
       await sendFriendRequest(profilePageUser._id);
-      store.dispatch(getActiveUser());
       setIsPending(true);
+      store.dispatch(getActiveUser());
     } catch (error) {
       console.error('Failed to send friend request:', error);
     }
@@ -32,7 +32,7 @@ const FriendRequestButton = ({ currentUser, profilePageUser }) => {
 
   useEffect(() => {
     setIsPending(false);
-    if (currentUser.sentFriendRequests.some((friendRequests) => friendRequests.to === profilePageUser._id)) {
+    if (currentUser.sentFriendRequests.some((friendRequests) => friendRequests.to._id === profilePageUser._id)) {
       setIsPending(true);
     }
   }, [currentUser.sentFriendRequests, profilePageUser._id]);

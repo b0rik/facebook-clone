@@ -1,0 +1,31 @@
+.friend-request {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid var(--primary-gray);
+}
+
+.friend-request__header {
+  padding: 0.5rem;
+}
+
+.friend-request__name {
+  font-size: 1.125rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--primary-blue);
+}
+
+.friend-request__text {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.friend-request__buttons {
+  padding: 0.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}

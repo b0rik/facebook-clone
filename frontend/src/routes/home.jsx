@@ -13,7 +13,7 @@ const Home = () => {
         <Feed title="Feed"/>
       </Content>
       <Side borderLeft={false}>
-        {/* <Notifications /> */}
+        <Notifications />
       </Side>
     </div>
   );

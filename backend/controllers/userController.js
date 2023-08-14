@@ -102,8 +102,21 @@ exports.userLogout = asyncHandler(async (req, res, next) => {
 
 exports.getUserInfo = asyncHandler(async (id) => {
   const user = await User.findOne({ _id: id })
-    .select('_id friends sentFriendRequests')
-    .populate('sentFriendRequests')
+    .select('_id friends sentFriendRequests pendingFriendRequests')
+    .populate({
+      path: 'sentFriendRequests',
+      populate: {
+        path: 'from to',
+        select: '_id name'
+      },
+    })
+    .populate({
+      path: 'pendingFriendRequests',
+      populate: {
+        path: 'from to',
+        select: '_id name'
+      },
+    })
     .exec();
 
   return user;

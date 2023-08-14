@@ -20,6 +20,7 @@ const commentsRouter = require('./routes/comments');
 const postsRouter = require('./routes/posts');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const friendRequestsRouter = require('./routes/friendRequests');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -44,5 +45,6 @@ app.use('/comments', commentsRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/friendRequests', friendRequestsRouter);
 
 module.exports = app;

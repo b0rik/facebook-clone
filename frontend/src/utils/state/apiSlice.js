@@ -54,6 +54,18 @@ export const apiSlice = createApi({
         method: 'POST',
       }),
     }),
+    acceptFriendRequest: builder.mutation({
+      query: (friendRequestId) => ({
+        url: `/friendRequests/${friendRequestId}/accept`,
+        method: 'POST',
+      }),
+    }),
+    declineFriendRequest: builder.mutation({
+      query: (friendRequestId) => ({
+        url: `/friendRequests/${friendRequestId}/decline`,
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
@@ -65,4 +77,6 @@ export const {
   useLogoutUserMutation,
   useGetUserByIdQuery,
   useSendFriendRequestMutation,
+  useAcceptFriendRequestMutation,
+  useDeclineFriendRequestMutation,
 } = apiSlice;
