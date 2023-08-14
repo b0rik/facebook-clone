@@ -48,6 +48,12 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Info'],
     }),
+    sendFriendRequest: builder.mutation({
+      query: (userId) => ({
+        url: `/users/${userId}/sendFriendRequest`,
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
@@ -58,4 +64,5 @@ export const {
   useLoginUserMutation,
   useLogoutUserMutation,
   useGetUserByIdQuery,
+  useSendFriendRequestMutation,
 } = apiSlice;

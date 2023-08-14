@@ -9,6 +9,7 @@ import ProfileInfo from '../components/side/profileInfo';
 import Friends from '../components/friends/friends';
 import PostForm from '../components/post/postForm';
 import Feed from '../components/content/feed';
+import FriendRequestButton from '../components/friendRequestButton';
 
 import '../styles/page.css';
 
@@ -29,6 +30,7 @@ const Profile = () => {
     <div className='page'>
       <Side borderRight={false}>
         <ProfileInfo user={user} />
+        <FriendRequestButton currentUser={currentUserData} profilePageUser={user}/>
         <Friends user={user} />
       </Side>
       <Content>

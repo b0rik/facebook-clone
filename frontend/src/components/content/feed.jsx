@@ -27,7 +27,6 @@ const Feed = ({ title, user }) => {
     content = <h1>{error}</h1>;
   }
   
-  console.log('dsadd',content)
   return (
     <div className="feed">
       <Title>{title}</Title>

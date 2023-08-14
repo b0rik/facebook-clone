@@ -15,4 +15,6 @@ router.get('/search', userController.searchUsers);
 router.get('/:id', userController.getUserById);
 router.get('/', userController.getUserById);
 
+router.post('/:id/sendFriendRequest', userController.addFriendRequest);
+
 module.exports = router;

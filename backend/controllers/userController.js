@@ -102,7 +102,8 @@ exports.userLogout = asyncHandler(async (req, res, next) => {
 
 exports.getUserInfo = asyncHandler(async (id) => {
   const user = await User.findOne({ _id: id })
-    .select('_id')
+    .select('_id friends sentFriendRequests')
+    .populate('sentFriendRequests')
     .exec();
 
   return user;
@@ -174,5 +175,62 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
       message: 'Error fetching user.',
       data: {}
     });
+  }
+});
+
+exports.addFriendRequest = asyncHandler(async (req, res, next) => {
+  const user = req.user;
+  
+  // TODO: make middleware
+  if (!user) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Need to be logged in to fetch users.',
+      data: {}
+    });
+  } 
+
+  if (!ObjectId.isValid(req.params.id) || req.params.id === user.id) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Error adding friend request.',
+      data: {}
+    });
+  }
+
+  try {
+    const friendRequest = await FriendRequest.create({
+      status: 'pending',
+      from: user.id,
+      to: req.params.id
+    })
+
+    await User.findByIdAndUpdate({ _id: user.id }, {
+      $push: { sentFriendRequests: friendRequest } 
+    })
+    .exec();
+
+    await User.findByIdAndUpdate({ _id: req.params.id }, {
+      $push: { pendingFriendRequests: friendRequest } 
+    })
+    .exec();
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'Friend request sent',
+      data: {
+        currentUserId: user.id,
+        sentToUser: req.params.id
+      }
+    });
+    
+  } catch (error) {
+    console.error('Error sending friend request:', error);
+    return res.status(500).json({
+      status: 'error',
+      message: 'Error sending friend request',
+      data: {}
+    });
+
   }
 });

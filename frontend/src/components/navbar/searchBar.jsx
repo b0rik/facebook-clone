@@ -13,7 +13,7 @@ const SearchBar = () => {
   const [searchValue, setSearchValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const { data: searchData } = useSelector((state) => state.search);
-  const linkClicked = false;
+
   useEffect(() => {
     store.dispatch(searchUsers(searchValue));
   }, [searchValue]);
@@ -22,7 +22,7 @@ const SearchBar = () => {
     ? searchData.data.users.map((user) => (
         <Link
           to={`/users/${user._id}`}
-          key={user.id}
+          key={user._id}
           className='search-bar__result'
           onClick={() => {
             setSearchValue('')
