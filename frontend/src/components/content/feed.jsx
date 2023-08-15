@@ -5,7 +5,7 @@ import Title from './title';
 
 import '../../styles/content/feed.css';
 
-const Feed = ({ title, user }) => {
+const Feed = ({ title, user, filter = false }) => {
   const id = user ? user._id : '';
   const {
     data: postsData,
@@ -19,7 +19,11 @@ const Feed = ({ title, user }) => {
   if (isLoading) {
     content = <h1>Loading...</h1>;
   } else if (isSuccess) {
-    content = postsData.data.posts.filter(post => post.author._id === postsData.data.id).map(post => <Post key={post._id} post={post} />);
+    if (filter) {
+      content = postsData.data.posts.filter(post => post.author._id === postsData.data.id).map(post => <Post key={post._id} post={post} />);
+    } else {
+      content = postsData.data.posts.map(post => <Post key={post._id} post={post} />);
+    }
     if (!content.length) {
       content = <p style={{ borderTop: '2px solid var(--primary-gray)' }}>No posts. YET!</p>
     }

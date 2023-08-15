@@ -12,7 +12,7 @@ const Friend = ({ user }) => {
       <div className="friend__image">
         <img src={image ? image : avatarPlaceHolder} alt={name} />
       </div>
-      <Link to={''} className="friend__name">{name}</Link>
+      <Link to={`/users/${_id}`} className="friend__name">{name}</Link>
     </div>
   );
 };

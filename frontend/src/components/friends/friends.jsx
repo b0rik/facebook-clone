@@ -9,7 +9,7 @@ const Friends = ({ user }) => {
   const { friends } = user;
 
   const friendsList = friends.map(friend => (
-    <Friend user={{_id: friend.id, name: friend.name, image: friend.profilePicture}} />
+    <Friend user={{_id: friend._id, name: friend.name, image: friend.profilePicture}} />
   ));
 
   return (

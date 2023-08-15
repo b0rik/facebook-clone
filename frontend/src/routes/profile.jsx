@@ -35,7 +35,7 @@ const Profile = () => {
       </Side>
       <Content>
         {user._id === currentUserData._id && <PostForm />}
-        <Feed title={`${user.name}'s Posts`} user={user} />
+        <Feed title={`${user.name}'s Posts`} user={user} fiter={true} />
       </Content>
     </div>
   );
