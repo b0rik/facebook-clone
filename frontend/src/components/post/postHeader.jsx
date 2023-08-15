@@ -13,7 +13,7 @@ const PostHeader = ({ author, date }) => {
       </div>
       <div className="post-header__content">
         <img src={postIcon} alt="post icon" className="post-header__icon"></img>
-        <h3 className="post-header__title"><Link to={''} className="post-header__user">{author.name}</Link> posted.</h3>
+        <h3 className="post-header__title"><Link to={`/users/${author._id}`} className="post-header__user">{author.name}</Link> posted.</h3>
         <h5 className="post-header__time">{date}</h5>
       </div>
     </div>

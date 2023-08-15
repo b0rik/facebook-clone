@@ -47,7 +47,13 @@ exports.getPostsById = asyncHandler(async (req, res, next) => {
       })
       .populate({
         path: 'friends',
-        populate: 'posts',
+        populate: {
+          path: 'posts',
+          populate: {
+            path: 'author',
+            select: '_id name profilePicture'
+          }
+        },
         select: 'posts'
       })
       .exec();

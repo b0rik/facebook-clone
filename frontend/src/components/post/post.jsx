@@ -6,7 +6,7 @@ import '../../styles/post/post.css';
 
 const Post = ({ post }) => {
   const { author, date, content, likes, comments } = post;
-
+  console.log(post)
   return (
     <article className="post">
       <PostHeader 
