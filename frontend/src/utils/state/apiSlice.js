@@ -10,7 +10,10 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     getPosts: builder.query({
       query: userId => `/posts/${userId}`,
-      providesTags: ['Post'],
+      providesTags: (result = [], error, args) => [
+        'Post',
+        ...result.data.posts.map(({ _id }) => ({ type: 'Post', id: _id }))
+      ]
     }),
     addNewPost: builder.mutation({
       query: (initialPost) => ({
@@ -66,6 +69,20 @@ export const apiSlice = createApi({
         method: 'POST',
       }),
     }),
+    addLike: builder.mutation({
+      query: (postId) => ({
+        url: `/posts/${postId}/addLike`,
+        method: 'POST',
+      }),
+      invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }]
+    }),
+    removeLike: builder.mutation({
+      query: (postId) => ({
+        url: `/posts/${postId}/removeLike`,
+        method: 'POST',
+      }),
+      invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }]
+    }),
   }),
 });
 
@@ -79,4 +96,6 @@ export const {
   useSendFriendRequestMutation,
   useAcceptFriendRequestMutation,
   useDeclineFriendRequestMutation,
+  useAddLikeMutation,
+  useRemoveLikeMutation,
 } = apiSlice;

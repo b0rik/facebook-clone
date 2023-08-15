@@ -100,6 +100,7 @@ exports.userLogout = asyncHandler(async (req, res, next) => {
   });
 });
 
+
 exports.getUserInfo = asyncHandler(async (id) => {
   const user = await User.findOne({ _id: id })
     .select('_id friends sentFriendRequests pendingFriendRequests')
@@ -122,9 +123,14 @@ exports.getUserInfo = asyncHandler(async (id) => {
   return user;
 });
 
+// return results for a search bar 
 exports.searchUsers = asyncHandler(async (req, res, next) => {
   try {
+    // check if query is provided or is a legal query
+    // a legal query must contain only letters and space
     const isQuery = req.query.q && req.query.q.trim() !== '' && /^[A-Za-z\s]*$/.test(req.query.q);
+
+    // if the query is illegal then return an empty array
     const users = isQuery
       ? await User.find({
           name: { $regex: req.query.q, $options: 'i' },
@@ -163,6 +169,8 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
     });
   } 
   
+  // check if an id is provided or is a legal mongo ID
+  // if not the use the logged in users id
   const queryId = Object.keys(req.params).length === 0 || !ObjectId.isValid(req.params.id) ? user.id : req.params.id;
 
   try {
@@ -198,11 +206,12 @@ exports.addFriendRequest = asyncHandler(async (req, res, next) => {
   if (!user) {
     return res.status(400).json({
       status: 'error',
-      message: 'Need to be logged in to fetch users.',
+      message: 'Need to be logged in to send friend requests.',
       data: {}
     });
   } 
 
+  // if provided id is not a valid mongo ID or is of the loggen in user
   if (!ObjectId.isValid(req.params.id) || req.params.id === user.id) {
     return res.status(400).json({
       status: 'error',
@@ -218,11 +227,12 @@ exports.addFriendRequest = asyncHandler(async (req, res, next) => {
       to: req.params.id
     })
 
+    // add the friend request to the sending user
     await User.findByIdAndUpdate({ _id: user.id }, {
       $push: { sentFriendRequests: friendRequest } 
     })
     .exec();
-
+    // add the friend request to the receiving user
     await User.findByIdAndUpdate({ _id: req.params.id }, {
       $push: { pendingFriendRequests: friendRequest } 
     })

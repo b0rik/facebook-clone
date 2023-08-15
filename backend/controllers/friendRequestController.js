@@ -9,7 +9,7 @@ exports.acceptFriendRequest = asyncHandler(async (req, res, next) => {
   if (!user) {
     return res.status(400).json({
       status: 'error',
-      message: 'Need to be logged in to fetch users.',
+      message: 'Need to be logged in to accept friend requests.',
       data: {}
     });
   } 
@@ -19,9 +19,11 @@ exports.acceptFriendRequest = asyncHandler(async (req, res, next) => {
     const fromUser = await User.findOne({ _id: friendRequest.from }).exec();
     const toUser = await User.findOne({ _id: friendRequest.to }).exec();
 
+    // add both users as friends of each other
     await fromUser.updateOne({ $push: { friends: toUser._id } });
     await toUser.updateOne({ $push: { friends: fromUser._id } });
 
+    // remove the friend requests
     await fromUser.updateOne({ $pull: { sentFriendRequests: friendRequest._id } });
     await toUser.updateOne({ $pull: { pendingFriendRequests: friendRequest._id } });
 
@@ -52,7 +54,7 @@ exports.declineFriendRequest = asyncHandler(async (req, res, next) => {
   if (!user) {
     return res.status(400).json({
       status: 'error',
-      message: 'Need to be logged in to fetch users.',
+      message: 'Need to be logged in to decline friend requests.',
       data: {}
     });
   } 
@@ -62,6 +64,7 @@ exports.declineFriendRequest = asyncHandler(async (req, res, next) => {
     const fromUser = await User.findOne({ _id: friendRequest.from }).exec();
     const toUser = await User.findOne({ _id: friendRequest.to }).exec();
 
+    // remove the friend requests
     await fromUser.updateOne({ $pull: { sentFriendRequests: friendRequest._id } });
     await toUser.updateOne({ $pull: { pendingFriendRequests: friendRequest._id } });
 

@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const userController = require('../controllers/userController');
 
+// a route too authenticate the logged in user
 router.get('/user', async (req, res) => {
   if (req.user) {
     const userData = await userController.getUserInfo(req.user.id);
