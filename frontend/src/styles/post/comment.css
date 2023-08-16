@@ -22,6 +22,22 @@
   text-transform: capitalize;
 }
 
+.comment__delete {
+  margin-left: auto;
+  background-color: var(--white);
+  color: var(--primary-blue);
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.comment__delete:hover {
+  background-color: var(--primary-gray);
+}
+
 .comment__content {
   margin: 0.25rem 0 0 3rem;
   font-size: 1.125rem;
