@@ -1,0 +1,33 @@
+.comment {
+  border: 1px solid var(--primary-gray);
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+.comment__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.comment__avatar {
+  width: 2rem;
+  border-radius: 5rem;
+  overflow: hidden;
+}
+
+.comment__name {
+  text-decoration: none;
+  color: var(--primary-blue);
+  text-transform: capitalize;
+}
+
+.comment__content {
+  margin: 0.25rem 0 0 3rem;
+  font-size: 1.125rem;
+}
+
+.comment__date {
+  margin: 0.5rem 0 0 4rem;
+  font-size: 0.75rem;
+}

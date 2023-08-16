@@ -3,6 +3,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 const User = require("../models/User");
 const Post = require("../models/Post");
 const Like = require('../models/Like');
+const Comment = require('../models/Comment');
 
 const asyncHandler = require("express-async-handler");
 
@@ -51,6 +52,13 @@ exports.getPostsById = asyncHandler(async (req, res, next) => {
         },
         {
           path: 'likes'
+        },
+        {
+          path: 'comments',
+          populate: {
+            path: 'author',
+            select: '_id name profilePicture'
+          }
         }],
       })
       .populate({
@@ -63,12 +71,19 @@ exports.getPostsById = asyncHandler(async (req, res, next) => {
           },
           {
             path: 'likes'
+          },
+          {
+            path: 'comments',
+            populate: {
+              path: 'author',
+              select: '_id name profilePicture'
+            }
           }]
         },
         select: 'posts'
       })
       .exec();
-  
+
     // merge users posts and users friends posts to one array
     const userPosts = userData.posts;
     const friendsPosts = [];
@@ -212,3 +227,52 @@ exports.removeLike = asyncHandler(async (req, res, next) => {
     });
   }
 });
+
+exports.addComment = asyncHandler(async (req, res, next) => {
+  const user = req.user;
+  
+  // TODO: make middleware
+  if (!user) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Need to be logged in to add a comment.',
+      data: {}
+    });
+  } 
+
+  if (!ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Error removing comment.',
+      data: {}
+    });
+  }
+
+  try {
+    const post = await Post.findOne({ _id: req.params.id }).exec();
+
+    const comment = await Comment({
+      post: post._id,
+      author: req.user.id,
+      content: req.body.content
+    }).save();
+
+    await post.updateOne({ $push: { comments: comment._id } });
+    return res.status(200).json({
+      status: 'success',
+      message: 'commnet added.',
+      data: {
+        commnetId: comment._id
+      }
+    });
+
+  } catch (error) {
+    console.log('Error adding comment:', error);
+    return res.status(400).json({
+      status: 'error',
+      message: 'Error adding comment.',
+      data: {}
+    });
+  }
+});
+

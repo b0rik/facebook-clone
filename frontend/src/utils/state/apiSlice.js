@@ -83,6 +83,14 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }]
     }),
+    addComment: builder.mutation({
+      query: ({ postId, content }) => ({
+        url: `/posts/${postId}/addComment`,
+        method: 'POST',
+        body: { content }
+      }),
+      invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }]
+    }),
   }),
 });
 
@@ -98,4 +106,5 @@ export const {
   useDeclineFriendRequestMutation,
   useAddLikeMutation,
   useRemoveLikeMutation,
+  useAddCommentMutation,
 } = apiSlice;

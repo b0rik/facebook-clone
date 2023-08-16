@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { addNewPostMutation, useAddNewPostMutation } from '../../utils/state/apiSlice';
+import { useAddNewPostMutation } from '../../utils/state/apiSlice';
 import { useSelector } from 'react-redux';
 
 import Button from '../button';

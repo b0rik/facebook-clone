@@ -1,0 +1,19 @@
+.comment-form {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--primary-gray);
+}
+
+.comment-form__input-field {
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: normal;
+  resize: none;
+}
+
+.commentt-form__input-field:focus {
+  outline: none;
+}
