@@ -1,14 +1,23 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { useDeleteCommentMutation } from '../../utils/state/apiSlice';
+
 import '../../styles/post/comment.css';
 
 import avatarPlaceHolder from '../../assets/avatar-placeholder.png';
 
 const Comment = ({ comment }) => {
+  const [deleteComment] = useDeleteCommentMutation();
   const { _id: currentUserId } = useSelector(state => state.user.data);
-  const { author, content, date } = comment;
+  const { _id: commentId, post: postId, author, content, date } = comment;
   const isMyComment = currentUserId === author._id;
+
+  const handleDelete = async e => {
+    e.preventDefault();
+    await deleteComment({ postId, commentId });
+  }
+
   return (
     <div className="comment">
       <div className="comment__header">
@@ -19,7 +28,7 @@ const Comment = ({ comment }) => {
           />
         </div>
         <Link to={`/users/${author._id}`} className="comment__name">{author.name}</Link>
-        {isMyComment && <button className="comment__delete">X</button>}
+        {isMyComment && <button className="comment__delete" onClick={handleDelete}>X</button>}
       </div>
       <div className="comment__content">{content}</div>
       <div className="comment__date">{new Date(date).toDateString()}</div>

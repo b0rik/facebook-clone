@@ -243,7 +243,7 @@ exports.addComment = asyncHandler(async (req, res, next) => {
   if (!ObjectId.isValid(req.params.id)) {
     return res.status(400).json({
       status: 'error',
-      message: 'Error removing comment.',
+      message: 'Error adding comment.',
       data: {}
     });
   }
@@ -271,6 +271,50 @@ exports.addComment = asyncHandler(async (req, res, next) => {
     return res.status(400).json({
       status: 'error',
       message: 'Error adding comment.',
+      data: {}
+    });
+  }
+});
+
+exports.deleteComment = asyncHandler(async (req, res, next) => {
+  const user = req.user;
+  
+  // TODO: make middleware
+  if (!user) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Need to be logged in to delete a comment.',
+      data: {}
+    });
+  } 
+
+  if (!ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({
+      status: 'error',
+      message: 'Error removing comment.',
+      data: {}
+    });
+  }
+
+  try {
+    const post = await Post.findOne({ _id: req.params.id }).exec();
+    const { commentId } = req.body;
+    await post.updateOne({ $pull: { comments: commentId } });
+    await Comment.findByIdAndDelete(commentId);
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'commnet deleted.',
+      data: {
+        commentId
+      }
+    });
+
+  } catch (error) {
+    console.log('Error deleting comment:', error);
+    return res.status(400).json({
+      status: 'error',
+      message: 'Error deleting comment.',
       data: {}
     });
   }

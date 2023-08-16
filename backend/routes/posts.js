@@ -7,6 +7,7 @@ router.get('/', postController.getPostsById);
 router.post('/:id/addLike', postController.addLike);
 router.post('/:id/removeLike', postController.removeLike);
 router.post('/:id/addComment', postController.addComment);
+router.post('/:id/deleteComment', postController.deleteComment);
 
 router.post('/addPost', postController.addPost);
 
