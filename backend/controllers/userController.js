@@ -30,12 +30,10 @@ exports.userCreate = asyncHandler(async (req, res, next) => {
       },
     });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({
       status: 'error',
       message: 'There was an error creating a new user.',
-      data: {
-        error,
-      },
     });
   }
 });
@@ -46,9 +44,6 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
       return res.status(500).json({
         status: 'error',
         message: 'Error authenticating user.',
-        data: {
-          error: err,
-        },
       });
     }
 
@@ -56,7 +51,6 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
       return res.status(400).json({
         status: 'error',
         message: info.message,
-        data: {},
       });
     }
 
@@ -66,7 +60,6 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
         return res.status(500).json({
           status: 'error',
           message: 'Error logging in user.',
-          data: {},
         });
       }
 
@@ -84,18 +77,16 @@ exports.userLogin = asyncHandler(async (req, res, next) => {
 exports.userLogout = asyncHandler(async (req, res, next) => {
   req.logout((err) => {
     if (err) {
-      console.error('Error looggin out user:', err.message);
+      console.error('Error loggin out user:', err.message);
       return res.status(500).json({
         status: 'error',
         message: 'Error logging out user.',
-        data: {},
       });
     }
 
     return res.status(200).json({
       status: 'success',
       message: 'User successfuly logged out.',
-      data: {},
     });
   });
 });
@@ -152,7 +143,6 @@ exports.searchUsers = asyncHandler(async (req, res, next) => {
     return res.status(500).json({
       status: 'error',
       message: 'Error quering database.',
-      data: {},
     });
   }
 });
@@ -165,7 +155,6 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
     return res.status(400).json({
       status: 'error',
       message: 'Need to be logged in to fetch users.',
-      data: {}
     });
   } 
   
@@ -185,16 +174,12 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
     res.status(200).json({
       status: 'success',
       message: 'Fetched user by id.',
-      data: {
-        user: userData,
-      }
     });
   } catch (error) {
     console.error('Error fetching user by id:', error.message);
     return res.status(500).json({
       status: 'error',
       message: 'Error fetching user.',
-      data: {}
     });
   }
 });
@@ -207,7 +192,6 @@ exports.addFriendRequest = asyncHandler(async (req, res, next) => {
     return res.status(400).json({
       status: 'error',
       message: 'Need to be logged in to send friend requests.',
-      data: {}
     });
   } 
 
@@ -216,7 +200,6 @@ exports.addFriendRequest = asyncHandler(async (req, res, next) => {
     return res.status(400).json({
       status: 'error',
       message: 'Error adding friend request.',
-      data: {}
     });
   }
 
@@ -252,8 +235,6 @@ exports.addFriendRequest = asyncHandler(async (req, res, next) => {
     return res.status(500).json({
       status: 'error',
       message: 'Error sending friend request',
-      data: {}
     });
-
   }
 });

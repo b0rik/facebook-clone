@@ -25,7 +25,7 @@ exports.addPost = asyncHandler(async (req, res, next) => {
   res.json({ok: true});
 });
 
-exports.getPostsById = asyncHandler(async (req, res, next) => {
+exports.getPostsByUserId = asyncHandler(async (req, res, next) => {
   const user = req.user;
   
   // TODO: make middleware

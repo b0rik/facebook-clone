@@ -59,4 +59,15 @@ const getHashedPassword = async (password) => {
   }
 };
 
-module.exports = { getHashedPassword, configuredPassport: passport };
+const ensureAuthenticated = (req, res, next) => {
+    if (!req.user) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Unauthorized action. Please log in first.',
+      });
+    } 
+
+    next();
+};
+
+module.exports = { getHashedPassword, configuredPassport: passport, authorize };

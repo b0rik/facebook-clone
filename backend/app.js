@@ -16,7 +16,6 @@ const connectDB = require('./utils/db');
 
 connectDB();
 
-const commentsRouter = require('./routes/comments');
 const postsRouter = require('./routes/posts');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
@@ -41,7 +40,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/comments', commentsRouter);
 app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);

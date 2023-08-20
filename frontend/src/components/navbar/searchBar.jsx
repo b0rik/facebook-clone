@@ -15,6 +15,8 @@ const SearchBar = () => {
   const { data: searchData } = useSelector((state) => state.search);
 
   useEffect(() => {
+    // need to add debounce
+    // remove from redux? make local?
     store.dispatch(searchUsers(searchValue));
   }, [searchValue]);
 

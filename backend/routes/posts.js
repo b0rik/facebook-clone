@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const postController = require('../controllers/postController');
 
-router.get('/:id', postController.getPostsById);
-router.get('/', postController.getPostsById);
+router.get('/:id', postController.getPostsByUserId);
+router.get('/', postController.getPostsByUserId);
 
 router.post('/:id/addLike', postController.addLike);
 router.post('/:id/removeLike', postController.removeLike);
