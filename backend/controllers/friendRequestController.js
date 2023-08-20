@@ -3,16 +3,6 @@ const User = require('../models/User');
 const asyncHandler = require('express-async-handler');
 
 exports.acceptFriendRequest = asyncHandler(async (req, res, next) => {
-  const user = req.user;
-  
-  // TODO: make middleware
-  if (!user) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Need to be logged in to accept friend requests.',
-      data: {}
-    });
-  } 
 
   try {
     const friendRequest = await FriendRequest.findOne({ _id: req.params.id }).exec();
@@ -42,22 +32,11 @@ exports.acceptFriendRequest = asyncHandler(async (req, res, next) => {
     return res.status(500).json({
       status: 'error',
       message: 'Error accepting friend request',
-      data: {}
     });
   }
 });
 
 exports.declineFriendRequest = asyncHandler(async (req, res, next) => {
-  const user = req.user;
-  
-  // TODO: make middleware
-  if (!user) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Need to be logged in to decline friend requests.',
-      data: {}
-    });
-  } 
 
   try {
     const friendRequest = await FriendRequest.findOne({ _id: req.params.id }).exec();
@@ -81,7 +60,6 @@ exports.declineFriendRequest = asyncHandler(async (req, res, next) => {
     return res.status(500).json({
       status: 'error',
       message: 'Error declining friend request',
-      data: {}
     });
   }
 });
