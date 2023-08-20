@@ -26,23 +26,10 @@ exports.addPost = asyncHandler(async (req, res, next) => {
 });
 
 exports.getPostsByUserId = asyncHandler(async (req, res, next) => {
-  const user = req.user;
   
-  // TODO: make middleware
-  if (!user) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Need to be logged in to fetch posts.',
-      data: {}
-    });
-  } 
-  
-  // if there is no id provided or it is no a valid mongo ID then use the logged in users id
-  const queryId = Object.keys(req.params).length === 0 || !ObjectId.isValid(req.params.id)? user.id : req.params.id;
-
   // get users posts and users friends posts
   try {
-    const userData = await User.findOne({ _id: queryId })
+    const userData = await User.findOne({ _id: req.params.id })
       .select('posts friends')
       .populate({
         path: 'posts',
@@ -100,7 +87,7 @@ exports.getPostsByUserId = asyncHandler(async (req, res, next) => {
       status: 'success',
       message: 'Fetched posts by user id.',
       data: {
-        id: queryId,
+        id: req.params.id,
         posts: sortedPosts,
       }
     });
@@ -109,30 +96,11 @@ exports.getPostsByUserId = asyncHandler(async (req, res, next) => {
     return res.status(500).json({
       status: 'error',
       message: 'Error fetching posts.',
-      data: {}
     });
   }
 });
 
 exports.addLike = asyncHandler(async (req, res, next) => {
-  const user = req.user;
-  
-  // TODO: make middleware
-  if (!user) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Need to be logged in to like.',
-      data: {}
-    });
-  } 
-
-  if (!ObjectId.isValid(req.params.id)) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Error adding like.',
-      data: {}
-    });
-  }
 
   try {
     const post = await Post.findOne({ _id: req.params.id }).populate('likes').exec();
@@ -156,7 +124,6 @@ exports.addLike = asyncHandler(async (req, res, next) => {
       return res.status(400).json({
         status: 'error',
         message: 'User already liked this post.',
-        data: {}
       });
     }
   } catch (error) {
@@ -164,30 +131,11 @@ exports.addLike = asyncHandler(async (req, res, next) => {
     return res.status(400).json({
       status: 'error',
       message: 'Error adding like.',
-      data: {}
     });
   }
 });
 
 exports.removeLike = asyncHandler(async (req, res, next) => {
-  const user = req.user;
-  
-  // TODO: make middleware
-  if (!user) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Need to be logged in to remove a like.',
-      data: {}
-    });
-  } 
-
-  if (!ObjectId.isValid(req.params.id)) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Error removing like.',
-      data: {}
-    });
-  }
 
   try {
     // get the post
@@ -215,7 +163,6 @@ exports.removeLike = asyncHandler(async (req, res, next) => {
       return res.status(400).json({
         status: 'error',
         message: 'User didnt like this post.',
-        data: {}
       });
     }
   } catch (error) {
@@ -223,30 +170,11 @@ exports.removeLike = asyncHandler(async (req, res, next) => {
     return res.status(400).json({
       status: 'error',
       message: 'Error removing like.',
-      data: {}
     });
   }
 });
 
 exports.addComment = asyncHandler(async (req, res, next) => {
-  const user = req.user;
-  
-  // TODO: make middleware
-  if (!user) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Need to be logged in to add a comment.',
-      data: {}
-    });
-  } 
-
-  if (!ObjectId.isValid(req.params.id)) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Error adding comment.',
-      data: {}
-    });
-  }
 
   try {
     const post = await Post.findOne({ _id: req.params.id }).exec();
@@ -271,30 +199,11 @@ exports.addComment = asyncHandler(async (req, res, next) => {
     return res.status(400).json({
       status: 'error',
       message: 'Error adding comment.',
-      data: {}
     });
   }
 });
 
 exports.deleteComment = asyncHandler(async (req, res, next) => {
-  const user = req.user;
-  
-  // TODO: make middleware
-  if (!user) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Need to be logged in to delete a comment.',
-      data: {}
-    });
-  } 
-
-  if (!ObjectId.isValid(req.params.id)) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Error removing comment.',
-      data: {}
-    });
-  }
 
   try {
     const post = await Post.findOne({ _id: req.params.id }).exec();
@@ -315,7 +224,6 @@ exports.deleteComment = asyncHandler(async (req, res, next) => {
     return res.status(400).json({
       status: 'error',
       message: 'Error deleting comment.',
-      data: {}
     });
   }
 });

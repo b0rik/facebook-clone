@@ -105,8 +105,8 @@ exports.idParamsValidation = [
   param('id')
     .notEmpty()
     .withMessage('Id cannot be empty.')
-    .custom((value, { req }) => {
-      if (!ObjectId.isValid(req.params.id)) {
+    .custom((value) => {
+      if (!ObjectId.isValid(value)) {
         throw new Error('The id is not a valid id.');
       }
       return true;
@@ -122,23 +122,17 @@ exports.idParamsValidation = [
   }
 ];
 
-// if (!ObjectId.isValid(req.params.id) || req.params.id === req.user.id) {
-//   return res.status(400).json({
-//     status: 'error',
-//     message: 'Error adding friend request.',
-//   });
-// }
 exports.friendRequestValidation = [
   param('id')
     .notEmpty()
     .withMessage('Id cannot be empty.')
-    .custom((value, { req }) => {
-      if (!ObjectId.isValid(req.params.id)) {
+    .custom((value) => {
+      if (!ObjectId.isValid(value)) {
         throw new Error('The id is not a valid id.');
       }
       return true;
     })
-    .custom((value, { req }) => req.params.id !== req.user.id)
+    .custom((value, { req }) => value !== req.user.id)
     .withMessage('Cannot add self to friends.'),
   (req, res, next) => {
     const { errors } = validationResult(req);
@@ -155,4 +149,30 @@ exports.friendRequestValidation = [
   }
 ];
 
+exports.postIdParamsValidation = [
+  param('id')
+    .notEmpty()
+    .withMessage('Id cannot be empty.')
+    .custom((value) => {
+      if (!ObjectId.isValid(value)) {
+        throw new Error('The id is not a valid id.');
+      }
+      return true;
+    }),
+  (req, res, next) => {
+    const { errors } = validationResult(req);
+    
+    if (errors.length) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Error adding like.',
+        data: {
+          errors
+        }
+      });
+    }
+
+    next();
+  }
+];
 

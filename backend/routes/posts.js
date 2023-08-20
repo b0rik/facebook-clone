@@ -1,13 +1,17 @@
 const router = require('express').Router();
 const postController = require('../controllers/postController');
+const validation = require('../utils/validation');
+const { ensureAuthenticated, forwardAuthenticated, friendRequestValidation } = require('../utils/auth');
 
-router.get('/:id', postController.getPostsByUserId);
-router.get('/', postController.getPostsByUserId);
+router.use(ensureAuthenticated);
 
-router.post('/:id/addLike', postController.addLike);
-router.post('/:id/removeLike', postController.removeLike);
-router.post('/:id/addComment', postController.addComment);
-router.post('/:id/deleteComment', postController.deleteComment);
+router.get('/:id', validation.idParamsValidation, postController.getPostsByUserId);
+router.get('/', validation.idParamsValidation, postController.getPostsByUserId);
+
+router.post('/:id/addLike', validation.postIdParamsValidation, postController.addLike);
+router.post('/:id/removeLike', validation.postIdParamsValidation, postController.removeLike);
+router.post('/:id/addComment', validation.postIdParamsValidation, postController.addComment);
+router.post('/:id/deleteComment', validation.postIdParamsValidation, postController.deleteComment);
 
 router.post('/addPost', postController.addPost);
 
