@@ -60,7 +60,7 @@ const getHashedPassword = async (password) => {
 };
 
 const ensureAuthenticated = (req, res, next) => {
-    if (!req.user) {
+    if (req.isUnauthenticated()) {
       return res.status(400).json({
         status: 'error',
         message: 'Unauthorized action. Please log in first.',
@@ -70,4 +70,15 @@ const ensureAuthenticated = (req, res, next) => {
     next();
 };
 
-module.exports = { getHashedPassword, configuredPassport: passport, authorize };
+const forwardAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Unauthorized action. Please log out first.',
+      });
+    } 
+
+    next();
+};
+
+module.exports = { getHashedPassword, configuredPassport: passport, forwardAuthenticated, ensureAuthenticated };

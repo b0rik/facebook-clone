@@ -1,4 +1,6 @@
-const { body, validationResult } =  require('express-validator');
+const { body, query, param, validationResult } =  require('express-validator');
+const ObjectId = require('mongoose').Types.ObjectId;
+
 const User = require('../models/User');
 
 exports.userSignupValidation = [
@@ -61,8 +63,8 @@ exports.userLoginValidation = [
     if (errors.length) {
       return res.status(400).json({
         status: 'error',
+        message: 'The data of the logging up user is not valid.',
         data: {
-          message: 'The data of the logging up user is not valid.',
           errors
         }
       });
@@ -70,3 +72,87 @@ exports.userLoginValidation = [
     next();
   },
 ];
+
+exports.userSearchValidation = [
+  query('q')
+    .notEmpty()
+    .custom(value => {
+      const legalString = /^[A-Za-z\s]*$/.test(value);
+      if (!legalString) {
+        throw new Error('The query is illegal.');
+      }
+      return true;
+    }),
+  (req, res, next) => {
+    const { errors } = validationResult(req);
+
+    if (errors.length) {
+      return res.status(200).json({
+        status: 'success',
+        message: 'Query is empty or illegal.',
+        data: {
+          users: [],
+          errors
+        }
+      });
+    }
+
+    next();
+  }
+];
+
+exports.idParamsValidation = [
+  param('id')
+    .notEmpty()
+    .withMessage('Id cannot be empty.')
+    .custom((value, { req }) => {
+      if (!ObjectId.isValid(req.params.id)) {
+        throw new Error('The id is not a valid id.');
+      }
+      return true;
+    }),
+  (req, res, next) => {
+    const { errors } = validationResult(req);
+    
+    if (errors.length) {
+      req.params.id = req.user.id;
+    }
+
+    next();
+  }
+];
+
+// if (!ObjectId.isValid(req.params.id) || req.params.id === req.user.id) {
+//   return res.status(400).json({
+//     status: 'error',
+//     message: 'Error adding friend request.',
+//   });
+// }
+exports.friendRequestValidation = [
+  param('id')
+    .notEmpty()
+    .withMessage('Id cannot be empty.')
+    .custom((value, { req }) => {
+      if (!ObjectId.isValid(req.params.id)) {
+        throw new Error('The id is not a valid id.');
+      }
+      return true;
+    })
+    .custom((value, { req }) => req.params.id !== req.user.id)
+    .withMessage('Cannot add self to friends.'),
+  (req, res, next) => {
+    const { errors } = validationResult(req);
+
+    if (errors.length) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Error adding friend request.',
+        data:{errors}
+      });
+    }
+
+    next();
+  }
+];
+
+

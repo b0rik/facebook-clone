@@ -62,6 +62,7 @@ export const apiSlice = createApi({
         url: `/friendRequests/${friendRequestId}/accept`,
         method: 'POST',
       }),
+      invalidatesTags: ['Post', 'Info'],
     }),
     declineFriendRequest: builder.mutation({
       query: (friendRequestId) => ({
