@@ -91,21 +91,20 @@ exports.userLogout = asyncHandler(async (req, res, next) => {
 });
 
 exports.getUserInfo = asyncHandler(async (id) => {
+  const populateFriendRequest = {
+    path: 'from to',
+    select: '_id name',
+  };
+
   const user = await User.findOne({ _id: id })
     .select('_id friends sentFriendRequests pendingFriendRequests')
     .populate({
       path: 'sentFriendRequests',
-      populate: {
-        path: 'from to',
-        select: '_id name',
-      },
+      populate: populateFriendRequest,
     })
     .populate({
       path: 'pendingFriendRequests',
-      populate: {
-        path: 'from to',
-        select: '_id name',
-      },
+      populate: populateFriendRequest,
     })
     .exec();
 
@@ -165,7 +164,6 @@ exports.getUserById = asyncHandler(async (req, res, next) => {
 });
 
 exports.addFriendRequest = asyncHandler(async (req, res, next) => {
-
   try {
     const friendRequest = await FriendRequest.create({
       status: 'pending',

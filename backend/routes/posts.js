@@ -11,10 +11,11 @@ router.use(ensureAuthenticated);
 router.get('/:id', validation.idParamsValidation, postController.getPostsByUserId);
 router.get('/', validation.idParamsValidation, postController.getPostsByUserId);
 
+router.post('/addPost', postController.addPost);
+
 router.use('/:id/like', likeRouter);
 
 router.use('/:id/comment', commentRouter);
 
-router.post('/addPost', postController.addPost);
 
 module.exports = router;

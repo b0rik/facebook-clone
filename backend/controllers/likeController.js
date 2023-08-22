@@ -4,7 +4,6 @@ const Like = require('../models/Like');
 const Post = require('../models/Post');
 
 exports.addLike = asyncHandler(async (req, res, next) => {
-
   try {
     const post = await Post.findOne({ _id: req.params.id }).populate('likes').exec();
 
@@ -39,7 +38,6 @@ exports.addLike = asyncHandler(async (req, res, next) => {
 });
 
 exports.removeLike = asyncHandler(async (req, res, next) => {
-
   try {
     // get the post
     const post = await Post.findOne({ _id: req.params.id }).populate('likes').exec();

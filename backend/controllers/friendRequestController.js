@@ -3,7 +3,6 @@ const User = require('../models/User');
 const asyncHandler = require('express-async-handler');
 
 exports.acceptFriendRequest = asyncHandler(async (req, res, next) => {
-
   try {
     const friendRequest = await FriendRequest.findOne({ _id: req.params.id }).exec();
     const fromUser = await User.findOne({ _id: friendRequest.from }).exec();
@@ -37,7 +36,6 @@ exports.acceptFriendRequest = asyncHandler(async (req, res, next) => {
 });
 
 exports.declineFriendRequest = asyncHandler(async (req, res, next) => {
-
   try {
     const friendRequest = await FriendRequest.findOne({ _id: req.params.id }).exec();
     const fromUser = await User.findOne({ _id: friendRequest.from }).exec();
