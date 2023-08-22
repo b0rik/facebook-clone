@@ -51,6 +51,10 @@ const router = createBrowserRouter([
     path: '/signup',
     element: <Signup />,
   },
+  {
+    path: '/*',
+    element: <h1>404</h1>
+  }
 ]);
 
 store.dispatch(getActiveUser());
