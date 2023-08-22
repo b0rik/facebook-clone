@@ -72,14 +72,14 @@ export const apiSlice = createApi({
     }),
     addLike: builder.mutation({
       query: (postId) => ({
-        url: `/posts/${postId}/addLike`,
+        url: `/posts/${postId}/like/addLike`,
         method: 'POST',
       }),
       invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }]
     }),
     removeLike: builder.mutation({
       query: (postId) => ({
-        url: `/posts/${postId}/removeLike`,
+        url: `/posts/${postId}/like/removeLike`,
         method: 'POST',
       }),
       invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }]
