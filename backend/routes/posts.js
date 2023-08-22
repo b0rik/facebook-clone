@@ -4,6 +4,7 @@ const validation = require('../utils/validation');
 const { ensureAuthenticated, forwardAuthenticated, friendRequestValidation } = require('../utils/auth');
 
 const likeRouter = require('./likes');
+const commentRouter = require('./comments');
 
 router.use(ensureAuthenticated);
 
@@ -12,8 +13,7 @@ router.get('/', validation.idParamsValidation, postController.getPostsByUserId);
 
 router.use('/:id/like', likeRouter);
 
-router.post('/:id/addComment', validation.postIdParamsValidation, postController.addComment);
-router.post('/:id/deleteComment', validation.postIdParamsValidation, postController.deleteComment);
+router.use('/:id/comment', commentRouter);
 
 router.post('/addPost', postController.addPost);
 

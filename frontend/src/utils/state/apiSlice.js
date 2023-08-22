@@ -86,7 +86,7 @@ export const apiSlice = createApi({
     }),
     addComment: builder.mutation({
       query: ({ postId, content }) => ({
-        url: `/posts/${postId}/addComment`,
+        url: `/posts/${postId}/comment/addComment`,
         method: 'POST',
         body: { content }
       }),
@@ -94,7 +94,7 @@ export const apiSlice = createApi({
     }),
     deleteComment: builder.mutation({
       query: ({ postId, commentId }) => ({
-        url: `/posts/${postId}/deleteComment`,
+        url: `/posts/${postId}/comment/deleteComment`,
         method: 'POST',
         body: { commentId }
       }),
