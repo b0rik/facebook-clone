@@ -8,17 +8,16 @@ const Comment = require('../models/Comment');
 const asyncHandler = require("express-async-handler");
 
 exports.addPost = asyncHandler(async (req, res, next) => {
-  const { _id, content } = req.body;
 
   const post = new Post({
-    author: _id,
-    content
+    author: req.user.id,
+    content: req.body.content
   });
   post.save();
 
   // add the post to users posts array
   const user = await User.findOneAndUpdate(
-    { _id },
+    { _id: req.user.id },
     { $push: { posts: post._id } }
   ).exec()
   
