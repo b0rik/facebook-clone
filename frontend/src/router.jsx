@@ -5,11 +5,11 @@ import {
 
 import EnsureAuth from './utils/auth/ensureAuth';
 import ForwardAuth from './utils/auth/forwardAuth';
-import Root from './routes/root';
-import Home from './routes/home';
-import Profile from './routes/profile';
-import Login from './routes/login';
-import Signup from './routes/signup';
+import Root from './routes/Root/root';
+import Home from './routes/Home/home';
+import Profile from './routes/Profile/profile';
+import Login from './routes/Login/login';
+import Signup from './routes/Signup/signup';
 import ErrorPage from './error-page';
 
 const router = createBrowserRouter([
