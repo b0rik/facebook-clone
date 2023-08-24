@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -13,11 +13,13 @@ const SearchBar = () => {
   const [searchValue, setSearchValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const { data: searchData } = useSelector((state) => state.search);
+  const searchTimeout = useRef(null);
 
   useEffect(() => {
-    // need to add debounce
-    // remove from redux? make local?
-    store.dispatch(searchUsers(searchValue));
+    clearTimeout(searchTimeout.current);
+    searchTimeout.current = setTimeout(() => {
+      store.dispatch(searchUsers(searchValue));
+    }, 500);
   }, [searchValue]);
 
   const results = searchData?.data
