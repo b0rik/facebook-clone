@@ -1,4 +1,6 @@
-import { useGetActiveUserQuery } from '../../../utils/state/apiSlice';
+import { useSelector } from 'react-redux';
+
+import { activeUserSelector } from '../../../utils/state/apiSelectors';
 
 import SideTitle from '../SideTitle/sideTitle';
 import FriendRequest from '../FriendRequest/friendRequest';
@@ -13,7 +15,7 @@ const Notifications = () => {
     isSuccess,
     isError,
     error,
-  } = useGetActiveUserQuery();
+  } = useSelector(activeUserSelector);
 
   if (isLoading) {
     return <Spinner />

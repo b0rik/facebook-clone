@@ -17,6 +17,7 @@ const Feed = ({ title, user, filter = false }) => {
   } = useGetPostsQuery(id);
   
   let content;
+  
   if (isLoading) {
     content = <Spinner />;
   } else if (isSuccess) {

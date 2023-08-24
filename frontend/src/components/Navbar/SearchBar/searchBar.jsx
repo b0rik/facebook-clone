@@ -10,14 +10,12 @@ import searchIcon from '../../../assets/search-interface-symbol.png';
 const SearchBar = () => {
   const [searchValue, setSearchValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const [isLoading, setIsLoading] = useState('false');
-  const [fetchSearchData, { data: searchData, isSuccess }] =
-    useLazySearchUsersQuery();
+  const [isLoading, setIsLoading] = useState(false);
+  const [fetchSearchData, { data: searchData, isSuccess }] = useLazySearchUsersQuery();
   const searchTimeout = useRef(null);
 
   // debounce fetch
   useEffect(() => {
-    console.log('here');
     setIsLoading(true);
     clearTimeout(searchTimeout.current);
     searchTimeout.current = setTimeout(() => {
@@ -32,7 +30,7 @@ const SearchBar = () => {
   }, [searchData, isSuccess]);
 
   const results = isLoading
-    ? [<span className='search-bar__result'>Searching...</span>]
+    ? <span className='search-bar__result'>Searching...</span>
     : isSuccess
     ? searchData.data.users.map((user) => (
         <Link

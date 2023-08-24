@@ -5,15 +5,15 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:9000',
     credentials: 'include',
-    tagTypes: ['Post', 'Profile', 'ActiveUser'],
+    tagTypes: ['Post', 'Profile', 'ActiveUser', 'PendingFriendRequest'],
   }),
   endpoints: (builder) => ({
     getPosts: builder.query({
-      query: userId => `/posts/${userId}`,
+      query: (userId) => `/posts/${userId}`,
       providesTags: (result = [], error, args) => [
         'Post',
-        ...result.data.posts.map(({ _id }) => ({ type: 'Post', id: _id }))
-      ]
+        ...result.data.posts.map(({ _id }) => ({ type: 'Post', id: _id })),
+      ],
     }),
     addNewPost: builder.mutation({
       query: (initialPost) => ({
@@ -36,17 +36,18 @@ export const apiSlice = createApi({
         method: 'POST',
         body: userData,
       }),
-      invalidatesTags: (result, error) => error ? [] : ['Post', 'Profile', 'ActiveUser'],
+      invalidatesTags: (result, error) =>
+        error ? [] : ['Post', 'Profile', 'ActiveUser'],
     }),
     logoutUser: builder.mutation({
       query: () => ({
         url: '/users/logout',
         method: 'POST',
       }),
-      invalidatesTags: ['ActiveUser'],
+      invalidatesTags: (result, error) => (error ? [] : ['ActiveUser']),
     }),
     getUserById: builder.query({
-      query: userId => ({
+      query: (userId) => ({
         url: `/users/${userId}`,
       }),
       providesTags: ['Profile'],
@@ -56,7 +57,7 @@ export const apiSlice = createApi({
         url: `/users/${userId}/sendFriendRequest`,
         method: 'POST',
       }),
-      invalidatesTags: ['ActiveUser']
+      invalidatesTags: ['ActiveUser'],
     }),
     acceptFriendRequest: builder.mutation({
       query: (friendRequestId) => ({
@@ -70,47 +71,65 @@ export const apiSlice = createApi({
         url: `/friendRequests/${friendRequestId}/decline`,
         method: 'POST',
       }),
-      invalidatesTags: ['ActiveUser']
+      invalidatesTags: (result, error, args) => {
+        console.log(args);
+        return [
+        { type: 'PendingFriendRequest', id: args },
+        ]
+      // invalidatesTags: ['ActiveUser']
+      },
     }),
     addLike: builder.mutation({
       query: (postId) => ({
         url: `/posts/${postId}/like/addLike`,
         method: 'POST',
       }),
-      invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }]
+      invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }],
     }),
     removeLike: builder.mutation({
       query: (postId) => ({
         url: `/posts/${postId}/like/removeLike`,
         method: 'POST',
       }),
-      invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }]
+      invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }],
     }),
     addComment: builder.mutation({
       query: ({ postId, content }) => ({
         url: `/posts/${postId}/comment/addComment`,
         method: 'POST',
-        body: { content }
+        body: { content },
       }),
-      invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }]
+      invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }],
     }),
     deleteComment: builder.mutation({
       query: ({ postId, commentId }) => ({
         url: `/posts/${postId}/comment/deleteComment`,
         method: 'POST',
-        body: { commentId }
+        body: { commentId },
       }),
-      invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }]
+      invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }],
     }),
     getActiveUser: builder.query({
       query: () => ({
         url: '/auth/user',
       }),
-      providesTags: ['ActiveUser'],
+      providesTags: (result, error) => {
+        const tags = ['ActiveUser'];
+        return result
+          ? [
+              ...tags,
+              ...result.data.user.pendingFriendRequests.map(({ _id }) => ({
+                type: 'PendingFriendRequest',
+                id: _id,
+              })),
+            ]
+          : tags;
+      },
+      // providesTags: ['ActiveUser']
     }),
     searchUsers: builder.query({
       query: (query) => ({
-        url: `/users/search/?q=${query}`
+        url: `/users/search/?q=${query}`,
       }),
     }),
   }),

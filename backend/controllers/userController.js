@@ -204,7 +204,7 @@ exports.addFriendRequest = asyncHandler(async (req, res, next) => {
       status: 'success',
       message: 'Friend request sent',
       data: {
-        currentUserId: user.id,
+        currentUserId: req.user.id,
         sentToUser: req.params.id,
       },
     });

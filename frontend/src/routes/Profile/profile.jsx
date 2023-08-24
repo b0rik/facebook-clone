@@ -16,7 +16,6 @@ const Profile = () => {
   const params = useParams();
   const { data: activeUserData } = useGetActiveUserQuery();
   const { user: activeUser } = activeUserData.data;
-  console.log(activeUser)
   const userId = params.id ? params.id : '';
   const {
     data: userData,

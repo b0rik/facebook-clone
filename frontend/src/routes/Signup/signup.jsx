@@ -7,6 +7,7 @@ import FormPage from '../../components/FormPage/FormPage/formPage';
 import FormInput from '../../components/FormPage/FormInput/formInput';
 import Button from '../../components/Button/button';
 import FormError from '../../components/FormPage/FormError/formError';
+import Spinner from '../../components/Spinner/spinner';
 
 import './signup.css';
 
@@ -17,11 +18,12 @@ const Signup = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [profilePicture, setProfilePicture] = useState('');
-  const [addUser, { error, isSuccess, isLoading: signupLoading }] =
-    useAddNewUserMutation();
+  const [addUser, { error, isSuccess, isLoading: signupLoading }] = useAddNewUserMutation();
   const navigate = useNavigate();
   
   const errors = error?.data?.data?.errors ? error.data.data.errors : [];
+
+
 
   return isSuccess ? (
     <Navigate to='/login' />
@@ -107,7 +109,8 @@ const Signup = () => {
             }}
             />
         </div>
-        {error && !errors.length && <FormError>Something went wront...please try again later.</FormError>}
+        {signupLoading && <Spinner />}
+        {error && !errors.length && <FormError>Something went wrong...please try again later.</FormError>}
       </FormPage>
     </div>
   );
