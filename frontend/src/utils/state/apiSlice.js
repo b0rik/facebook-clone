@@ -70,6 +70,7 @@ export const apiSlice = createApi({
         url: `/friendRequests/${friendRequestId}/decline`,
         method: 'POST',
       }),
+      invalidatesTags: ['ActiveUser']
     }),
     addLike: builder.mutation({
       query: (postId) => ({

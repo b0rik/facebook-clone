@@ -2,6 +2,7 @@ import { useGetActiveUserQuery } from '../../../utils/state/apiSlice';
 
 import SideTitle from '../SideTitle/sideTitle';
 import FriendRequest from '../FriendRequest/friendRequest';
+import Spinner from '../../Spinner/spinner';
 
 import './notifications.css';
 
@@ -15,7 +16,7 @@ const Notifications = () => {
   } = useGetActiveUserQuery();
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <Spinner />
   } else if (isSuccess) {
     const { pendingFriendRequests } = activeUserData.data.user;
     const friendRequests = pendingFriendRequests.map((friendRequest) => {
