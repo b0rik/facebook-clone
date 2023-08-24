@@ -45,9 +45,11 @@ exports.declineFriendRequest = asyncHandler(async (req, res, next) => {
     await fromUser.updateOne({ $pull: { sentFriendRequests: friendRequest._id } });
     await toUser.updateOne({ $pull: { pendingFriendRequests: friendRequest._id } });
 
+    await FriendRequest.deleteOne({ _id: friendRequest._id }).exec();
+
     return res.status(200).json({
       status:' success',
-      message: 'Deeclined friend request',
+      message: 'Declined friend request',
       data: {
         fromUserId: fromUser._id,
         toUserId: toUser._id,
