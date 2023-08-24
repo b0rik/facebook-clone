@@ -1,5 +1,4 @@
 import { useNavigate, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
 import { useAddNewUserMutation } from '../utils/state/apiSlice';
@@ -12,7 +11,6 @@ import FormError from '../components/formPage/formError';
 import '../styles/signup.css';
 
 const Signup = () => {
-  const { data: userData, loading: userDataLoading } = useSelector((state) => state.user);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,11 +23,7 @@ const Signup = () => {
   
   const errors = error?.data?.data?.errors ? error.data.data.errors : [];
 
-  return userDataLoading ? (
-    null
-  ) : userData ? (
-    <Navigate to='/home' />
-  ) : isSuccess ? (
+  return isSuccess ? (
     <Navigate to='/login' />
   ) : (
     <div className='signup'>

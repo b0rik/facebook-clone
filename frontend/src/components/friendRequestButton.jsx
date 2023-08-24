@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 
-import store from '../utils/state/store';
-import { getActiveUser } from '../utils/state/actions/userActions';
 import { useSendFriendRequestMutation } from '../utils/state/apiSlice';
 
 import Button from './button';
@@ -16,7 +14,6 @@ const FriendRequestButton = ({ currentUser, profilePageUser }) => {
     try {
       await sendFriendRequest(profilePageUser._id);
       setIsPending(true);
-      store.dispatch(getActiveUser());
     } catch (error) {
       console.error('Failed to send friend request:', error);
     }

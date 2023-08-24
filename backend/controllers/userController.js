@@ -90,13 +90,14 @@ exports.userLogout = asyncHandler(async (req, res, next) => {
   });
 });
 
-exports.getUserInfo = asyncHandler(async (id) => {
+exports.getUserInfo = asyncHandler(async (req, res, next) => {
   const populateFriendRequest = {
     path: 'from to',
     select: '_id name',
   };
-
-  const user = await User.findOne({ _id: id })
+  
+  try {
+    const user = await User.findOne({ _id: req.user.id })
     .select('_id friends sentFriendRequests pendingFriendRequests')
     .populate({
       path: 'sentFriendRequests',
@@ -108,7 +109,20 @@ exports.getUserInfo = asyncHandler(async (id) => {
     })
     .exec();
 
-  return user;
+    return res.status(200).json({
+      status: 'success',
+      message: 'Fetched user.',
+      data: {
+        user
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching user info:', error)
+    return res.status(500).json({
+      status: 'error',
+      message: 'Error fetching user info.'
+    });
+  }
 });
 
 // return results for a search bar

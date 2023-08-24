@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 
-import store from '../../utils/state/store';
-import { getActiveUser } from '../../utils/state/actions/userActions';
 import { useAcceptFriendRequestMutation, useDeclineFriendRequestMutation } from '../../utils/state/apiSlice';
 
 import Button from '../button';
@@ -15,13 +13,11 @@ const FriendRequest = ({ friendRequestId, fromUserId, name }) => {
   const handleAccept = async e => {
     e.preventDefault();
     await acceptFriendRequest(friendRequestId);
-    store.dispatch(getActiveUser());
   };
 
   const handledecline = async e => {
     e.preventDefault();
     await declineFriendRequest(friendRequestId);
-    store.dispatch(getActiveUser());
   };
 
   return (

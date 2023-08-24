@@ -61,7 +61,7 @@ const getHashedPassword = async (password) => {
 
 const ensureAuthenticated = (req, res, next) => {
     if (req.isUnauthenticated()) {
-      return res.status(400).json({
+      return res.status(401).json({
         status: 'error',
         message: 'Unauthorized action. Please log in first.',
       });
@@ -72,9 +72,9 @@ const ensureAuthenticated = (req, res, next) => {
 
 const forwardAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
-      return res.status(400).json({
+      return res.status(401).json({
         status: 'error',
-        message: 'Unauthorized action. Please log out first.',
+        message: 'Already logged in. Please log out first.',
       });
     } 
 

@@ -5,7 +5,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:9000',
     credentials: 'include',
-    tagTypes: ['Post', 'Info'],
+    tagTypes: ['Post', 'Profile', 'ActiveUser'],
   }),
   endpoints: (builder) => ({
     getPosts: builder.query({
@@ -36,33 +36,34 @@ export const apiSlice = createApi({
         method: 'POST',
         body: userData,
       }),
-      invalidatesTags: ['Post', 'Info'],
+      invalidatesTags: (result, error) => error ? [] : ['Post', 'Profile', 'ActiveUser'],
     }),
     logoutUser: builder.mutation({
-      query: (userData) => ({
+      query: () => ({
         url: '/users/logout',
         method: 'POST',
-        invalidatesTags: ['Post', 'Info'],
       }),
+      invalidatesTags: ['ActiveUser'],
     }),
     getUserById: builder.query({
       query: userId => ({
         url: `/users/${userId}`,
       }),
-      providesTags: ['Info'],
+      providesTags: ['Profile'],
     }),
     sendFriendRequest: builder.mutation({
       query: (userId) => ({
         url: `/users/${userId}/sendFriendRequest`,
         method: 'POST',
       }),
+      invalidatesTags: ['ActiveUser']
     }),
     acceptFriendRequest: builder.mutation({
       query: (friendRequestId) => ({
         url: `/friendRequests/${friendRequestId}/accept`,
         method: 'POST',
       }),
-      invalidatesTags: ['Post', 'Info'],
+      invalidatesTags: ['Post', 'Profile', 'ActiveUser'],
     }),
     declineFriendRequest: builder.mutation({
       query: (friendRequestId) => ({
@@ -100,6 +101,12 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: (result, error, args) => [{ type: 'Post', id: args.id }]
     }),
+    getActiveUser: builder.query({
+      query: () => ({
+        url: '/auth/user',
+      }),
+      providesTags: ['ActiveUser'],
+    }),
   }),
 });
 
@@ -117,4 +124,5 @@ export const {
   useRemoveLikeMutation,
   useAddCommentMutation,
   useDeleteCommentMutation,
+  useGetActiveUserQuery,
 } = apiSlice;

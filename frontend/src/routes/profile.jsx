@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
-import { useGetUserByIdQuery } from '../utils/state/apiSlice';
+import { useGetActiveUserQuery, useGetUserByIdQuery } from '../utils/state/apiSlice';
 
 import Content from '../components/content/content';
 import Side from '../components/side/side';
@@ -15,14 +14,16 @@ import '../styles/page.css';
 
 const Profile = () => {
   const params = useParams();
-  const { data: currentUserData, loading: currentUserLoading } = useSelector(state => state.user)
+  const { data: activeUserData } = useGetActiveUserQuery();
+  const { user: activeUser } = activeUserData.data;
+  console.log(activeUser)
   const userId = params.id ? params.id : '';
   const {
     data: userData,
     isLoading,
   } = useGetUserByIdQuery(userId);
 
-  if (currentUserLoading || isLoading) return null;
+  if (isLoading) return <div>Loading...</div>;
   
   const { user } = userData.data;
 
@@ -30,11 +31,11 @@ const Profile = () => {
     <div className='page'>
       <Side borderRight={false}>
         <ProfileInfo user={user} />
-        <FriendRequestButton currentUser={currentUserData} profilePageUser={user}/>
+        <FriendRequestButton currentUser={activeUser} profilePageUser={user}/>
         <Friends user={user} />
       </Side>
       <Content>
-        {user._id === currentUserData._id && <PostForm />}
+        {user._id === activeUser._id && <PostForm />}
         <Feed title={`${user.name}'s Posts`} user={user} filter={true} />
       </Content>
     </div>

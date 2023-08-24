@@ -1,21 +1,9 @@
 const router = require('express').Router();
 
 const userController = require('../controllers/userController');
+const { ensureAuthenticated } = require('../utils/auth')
 
 // a route too authenticate the logged in user
-router.get('/user', async (req, res) => {
-  if (req.user) {
-    const userData = await userController.getUserInfo(req.user.id);
-
-    if(!userData) {
-      res.json(null);
-    } else {
-      res.json(userData);
-    }
-  } else {
-    res.json(null);
-  }
-
-});
+router.get('/user', ensureAuthenticated, userController.getUserInfo);
 
 module.exports = router;

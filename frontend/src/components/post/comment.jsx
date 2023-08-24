@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
-import { useDeleteCommentMutation } from '../../utils/state/apiSlice';
+import { useGetActiveUserQuery, useDeleteCommentMutation } from '../../utils/state/apiSlice';
 
 import '../../styles/post/comment.css';
 
 import avatarPlaceHolder from '../../assets/avatar-placeholder.png';
 
 const Comment = ({ comment }) => {
+  const { data: activeUserData } = useGetActiveUserQuery();
+  const { user: activeUser } = activeUserData.data;
   const [deleteComment] = useDeleteCommentMutation();
-  const { _id: currentUserId } = useSelector(state => state.user.data);
   const { _id: commentId, post: postId, author, content, date } = comment;
-  const isMyComment = currentUserId === author._id;
+  const isMyComment = activeUser._id === author._id;
 
   const handleDelete = async e => {
     e.preventDefault();
