@@ -2,6 +2,7 @@ import { useGetPostsQuery } from '../../../utils/state/apiSlice';
 
 import Post from '../../Post/Post/post';
 import Title from '../Title/title';
+import Spinner from '../../Spinner/spinner';
 
 import './feed.css';
 
@@ -17,7 +18,7 @@ const Feed = ({ title, user, filter = false }) => {
   
   let content;
   if (isLoading) {
-    content = <h1>Loading...</h1>;
+    content = <Spinner />;
   } else if (isSuccess) {
     if (filter) {
       content = postsData.data.posts.filter(post => post.author._id === postsData.data.id).map(post => <Post key={post._id} post={post} />);
