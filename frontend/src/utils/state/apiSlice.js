@@ -107,6 +107,11 @@ export const apiSlice = createApi({
       }),
       providesTags: ['ActiveUser'],
     }),
+    searchUsers: builder.query({
+      query: (query) => ({
+        url: `/users/search/?q=${query}`
+      }),
+    }),
   }),
 });
 
@@ -125,4 +130,5 @@ export const {
   useAddCommentMutation,
   useDeleteCommentMutation,
   useGetActiveUserQuery,
+  useLazySearchUsersQuery,
 } = apiSlice;

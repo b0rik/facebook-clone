@@ -1,9 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
-import store from '../../utils/state/store';
-import { searchUsers } from '../../utils/state/actions/searchActions';
+import { useLazySearchUsersQuery } from '../../utils/state/apiSlice';
 
 import '../../styles/navbar/search-bar.css';
 
@@ -12,25 +10,38 @@ import searchIcon from '../../assets/search-interface-symbol.png';
 const SearchBar = () => {
   const [searchValue, setSearchValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const { data: searchData } = useSelector((state) => state.search);
+  const [isLoading, setIsLoading] = useState('false');
+  const [fetchSearchData, { data: searchData, isSuccess }] =
+    useLazySearchUsersQuery();
   const searchTimeout = useRef(null);
 
+  // debounce fetch
   useEffect(() => {
+    console.log('here');
+    setIsLoading(true);
     clearTimeout(searchTimeout.current);
     searchTimeout.current = setTimeout(() => {
-      store.dispatch(searchUsers(searchValue));
+      fetchSearchData(searchValue);
     }, 500);
-  }, [searchValue]);
+  }, [searchValue, fetchSearchData]);
 
-  const results = searchData?.data
+  useEffect(() => {
+    if (isSuccess) {
+      setIsLoading(false);
+    }
+  }, [searchData, isSuccess]);
+
+  const results = isLoading
+    ? [<span className='search-bar__result'>Loading...</span>]
+    : isSuccess
     ? searchData.data.users.map((user) => (
         <Link
           to={`/users/${user._id}`}
           key={user._id}
           className='search-bar__result'
           onClick={() => {
-            setSearchValue('')
-            setIsFocused(false)
+            setSearchValue('');
+            setIsFocused(false);
           }}
         >
           {user.name}
@@ -49,9 +60,9 @@ const SearchBar = () => {
           onChange={(e) => {
             setSearchValue(() => e.target.value);
           }}
-          onFocus={() => setIsFocused(true)} 
+          onFocus={() => setIsFocused(true)}
           onBlur={(e) => {
-            setTimeout(() => setIsFocused(false), 100)
+            setTimeout(() => setIsFocused(false), 100);
           }}
         />
         <span className='search-bar__icon'>
