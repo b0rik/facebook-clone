@@ -57,27 +57,19 @@ export const apiSlice = createApi({
         url: `/users/${userId}/sendFriendRequest`,
         method: 'POST',
       }),
-      invalidatesTags: ['ActiveUser'],
     }),
     acceptFriendRequest: builder.mutation({
       query: (friendRequestId) => ({
         url: `/friendRequests/${friendRequestId}/accept`,
         method: 'POST',
       }),
-      invalidatesTags: ['Post', 'Profile', 'ActiveUser'],
+      invalidatesTags: ['Post', 'Profile'],
     }),
     declineFriendRequest: builder.mutation({
       query: (friendRequestId) => ({
         url: `/friendRequests/${friendRequestId}/decline`,
         method: 'POST',
       }),
-      invalidatesTags: (result, error, args) => {
-        console.log(args);
-        return [
-        { type: 'PendingFriendRequest', id: args },
-        ]
-      // invalidatesTags: ['ActiveUser']
-      },
     }),
     addLike: builder.mutation({
       query: (postId) => ({

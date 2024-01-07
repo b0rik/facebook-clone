@@ -28,6 +28,7 @@
 .post-header__user {
   color: var(--primary-blue);
   text-decoration: none;
+  text-transform: capitalize;
 }
 
 .post-header__time {

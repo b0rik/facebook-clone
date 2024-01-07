@@ -18,6 +18,7 @@
   overflow-wrap: break-word;
   text-align: center;
   text-decoration: none;
+  text-transform: capitalize;
   color: var(--primary-blue);
   font-size: 1rem;
   font-weight: 600;

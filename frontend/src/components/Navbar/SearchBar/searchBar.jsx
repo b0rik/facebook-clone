@@ -30,7 +30,7 @@ const SearchBar = () => {
   }, [searchData, isSuccess]);
 
   const results = isLoading
-    ? <span className='search-bar__result'>Searching...</span>
+    ? [<span className='search-bar__result'>Searching...</span>]
     : isSuccess
     ? searchData.data.users.map((user) => (
         <Link
@@ -40,7 +40,7 @@ const SearchBar = () => {
           onClick={() => {
             setSearchValue('');
             setIsFocused(false);
-          }}
+          }}e
         >
           {user.name}
         </Link>
@@ -59,12 +59,12 @@ const SearchBar = () => {
             setSearchValue(() => e.target.value);
           }}
           onFocus={() => setIsFocused(true)}
-          onBlur={(e) => {
+          onBlur={() => {
             setTimeout(() => setIsFocused(false), 100);
           }}
         />
         <span className='search-bar__icon'>
-          <img src={searchIcon} alt='saerch icon' />
+          <img src={searchIcon} alt='search icon' />
         </span>
       </div>
       <div className='search-bar__results-container'>
